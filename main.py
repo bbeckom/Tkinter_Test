@@ -19,12 +19,14 @@ class MyApp(tkinter.Tk):
         self.topFrame.pack(fill=tkinter.X)
         self.bottomFrame = tkinter.Frame(self)
         self.bottomFrame.pack(side=tkinter.BOTTOM, fill=tkinter.X)
-        # put in logo
+        # put in canvas
         self.myLogo = self.myCanvas()
         self.logoCanvas = self.myLogo[0]
         self.logoText = self.myLogo[1]
         # entry field
-        self.entry = tkinter.Entry(self.topFrame)
+        self.entrytext = tkinter.StringVar()
+        self.entry = tkinter.Entry(self.topFrame, textvariable=self.entrytext)
+        self.entrytext.set("")
         # button for entry field
         self.getButton = tkinter.Button(self.topFrame, text="Get Input", command=self.on_button)
         # pack button and entry field
@@ -47,6 +49,8 @@ class MyApp(tkinter.Tk):
         logoCanvas = self.logoCanvas
         logoText = self.logoText
         logoCanvas.itemconfigure(logoText, text=self.entry.get())
+        # clear out entry field
+        self.entrytext.set("")
 
 
     def menucreate(self):
