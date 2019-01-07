@@ -72,14 +72,13 @@ class MyApp(tkinter.Tk):
         self.canvas = tkinter.Canvas(self.topFrame, width=600, height=480)
         self.canvas.pack()
         # just a bunch of random objects drawn
-        self.canvas.create_rectangle(0, 0, 595, 475, fill="red")
-        self.canvas.create_rectangle(5, 5, 600, 480, fill="blue")
-        self.canvas.create_line(0, 0, 600, 480, width=20)
-        self.canvas.create_line(600, 0, 0, 480, width=20)
-        self.canvas.create_line(600, 240, 0, 240, width=20)
-        self.canvas.create_line(300, 0, 300, 480, width=20)
+        self.canvas.create_rectangle(0, 0, 600, 480, fill="brown")
+        self.canvas.create_line(0, 0, 600, 480, width=2)
+        self.canvas.create_line(600, 0, 0, 480, width=2)
+        self.canvas.create_line(600, 240, 0, 240, width=2)
+        self.canvas.create_line(300, 0, 300, 480, width=2)
         # create initial text
-        self.text_1 = self.canvas.create_text(200, 200, text="init text", font=("Purisa",22), fill="white")
+        self.text_1 = self.canvas.create_text(300, 240, text="init text", font=("Purisa",22), fill="white")
         return self.canvas, self.text_1
 
 
