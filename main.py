@@ -19,6 +19,8 @@ def SimpleCopy():
 class MyApp(tkinter.Tk):
     def __init__(self):
         tkinter.Tk.__init__(self)
+        # set title
+        self.title("Test Program")
         # create frame sections for pack layout
         self.topFrame = tkinter.Frame(self)
         self.topFrame.pack(fill=tkinter.X)
@@ -33,7 +35,7 @@ class MyApp(tkinter.Tk):
         self.entry = tkinter.Entry(self.topFrame, textvariable=self.entrytext)
         self.entrytext.set("")
         # store current entry
-        self.storedendtry = str(self.entrytext.get())
+        self.storedendtry = "init text"
         # button for entry field
         self.getButton = tkinter.Button(self.topFrame, text="Get Input", command=self.on_button)
         # pack button and entry field
