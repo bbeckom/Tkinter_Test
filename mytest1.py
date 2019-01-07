@@ -3,9 +3,11 @@
 import tkinter
 
 
-# simple function to test commands for now
+# simple function to test commands for menu selections quickly
 def SimplePrint():
-    print("nothing")
+    # call the app variable that is created upon execution and change statusbar text to static string
+    app.statusbar.config(text="Text printed")
+    print("Text printed")
 
 
 class MyApp(tkinter.Tk):
@@ -27,6 +29,7 @@ class MyApp(tkinter.Tk):
         self.menucreate()
         # create status bar
         self.statusbar = self.statuscreate()
+        print("init text")
 
     def on_button(self):
         print(self.entry.get())
