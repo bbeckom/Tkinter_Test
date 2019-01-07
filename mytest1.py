@@ -1,3 +1,5 @@
+# Simple program that will echo what is put into input field
+
 import tkinter
 
 
@@ -32,9 +34,9 @@ class MyApp(tkinter.Tk):
         self.statusbar.config(text=self.entry.get())
 
     def menucreate(self):
+        # create menu and set to app with self.config
         self.mymenu = tkinter.Menu(self)
         self.config(menu=self.mymenu)
-
         # File menu
         self.subMenu = tkinter.Menu(self.mymenu, tearoff=0)
         self.mymenu.add_cascade(label="File", menu=self.subMenu)
@@ -44,7 +46,7 @@ class MyApp(tkinter.Tk):
         self.subMenu.add_command(label="Exit", command=self.quit)
 
     def statuscreate(self):
-        self.status = tkinter.Label(self.bottomFrame, text='init', bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W)
+        self.status = tkinter.Label(self.bottomFrame, text='init text', bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W)
         self.status.pack(fill=tkinter.X)
         # return so we can update this object later
         return self.status
