@@ -1,6 +1,7 @@
 # Simple program that will echo what is put into input field
 
 import tkinter
+import pyperclip
 
 
 # simple function to test commands for menu selections quickly
@@ -9,7 +10,11 @@ def SimplePrint(val=''):
     app.statusbar.config(text="Text printed")
     app.logoCanvas.itemconfigure(app.logoText, text="Text printed")
     print("Text printed")
+    app.storedendtry = "Text printed"
 
+def SimpleCopy():
+    # use downloaded pyperclip package to store to system clipboard
+    pyperclip.copy(app.storedendtry)
 
 class MyApp(tkinter.Tk):
     def __init__(self):
@@ -27,6 +32,8 @@ class MyApp(tkinter.Tk):
         self.entrytext = tkinter.StringVar()
         self.entry = tkinter.Entry(self.topFrame, textvariable=self.entrytext)
         self.entrytext.set("")
+        # store current entry
+        self.storedendtry = str(self.entrytext.get())
         # button for entry field
         self.getButton = tkinter.Button(self.topFrame, text="Get Input", command=self.on_button)
         # pack button and entry field
@@ -49,7 +56,8 @@ class MyApp(tkinter.Tk):
         logoCanvas = self.logoCanvas
         logoText = self.logoText
         logoCanvas.itemconfigure(logoText, text=self.entry.get())
-        # clear out entry field
+        # clear out entry field and store current entry
+        self.storedendtry = str(self.entrytext.get())
         self.entrytext.set("")
 
 
@@ -63,6 +71,7 @@ class MyApp(tkinter.Tk):
         self.mymenu.add_cascade(label="File", menu=self.subMenu)
         # File submenu options
         self.subMenu.add_command(label="Print text", command=SimplePrint)
+        self.subMenu.add_command(label="Copy current text", command=SimpleCopy)
         self.subMenu.add_separator()
         self.subMenu.add_command(label="Exit", command=self.quit)
 
