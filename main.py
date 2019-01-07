@@ -53,6 +53,7 @@ class MyApp(tkinter.Tk):
         self.entrytext.set("")
 
 
+
     def menucreate(self):
         # create menu and set to app with self.config
         self.mymenu = tkinter.Menu(self)
