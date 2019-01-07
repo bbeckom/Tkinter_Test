@@ -9,10 +9,14 @@ def SimplePrint():
 class MyApp(tkinter.Tk):
     def __init__(self):
         tkinter.Tk.__init__(self)
-        self.entry = tkinter.Entry(self)
-        self.getButton = tkinter.Button(self, text="Get Input", command=self.on_button)
-        self.getButton.pack()
-        self.entry.pack()
+        self.topFrame = tkinter.Frame(self)
+        self.topFrame.pack(fill=tkinter.X)
+        self.bottomFrame = tkinter.Frame(self)
+        self.bottomFrame.pack(side=tkinter.BOTTOM, fill=tkinter.X)
+        self.entry = tkinter.Entry(self.topFrame)
+        self.getButton = tkinter.Button(self.topFrame, text="Get Input", command=self.on_button)
+        self.getButton.pack(side=tkinter.RIGHT)
+        self.entry.pack(side=tkinter.LEFT, fill=tkinter.X, expand=True)
         self.menucreate()
         self.statusbar = self.statuscreate()
 
@@ -33,8 +37,8 @@ class MyApp(tkinter.Tk):
         self.subMenu.add_command(label="Exit", command=self.quit)
 
     def statuscreate(self):
-        self.status = tkinter.Label(self, text='init', bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W)
-        self.status.pack(side=tkinter.BOTTOM, fill=tkinter.X)
+        self.status = tkinter.Label(self.bottomFrame, text='init', bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W)
+        self.status.pack(fill=tkinter.X)
         return self.status
 
 
