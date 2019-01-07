@@ -12,8 +12,8 @@ def SimplePrint(val=''):
     print("Text printed")
     app.storedendtry = "Text printed"
 
+# use downloaded pyperclip package to store to system clipboard
 def SimpleCopy():
-    # use downloaded pyperclip package to store to system clipboard
     pyperclip.copy(app.storedendtry)
 
 class MyApp(tkinter.Tk):
@@ -87,12 +87,12 @@ class MyApp(tkinter.Tk):
         self.canvas.pack()
         # just a bunch of random objects drawn
         self.canvas.create_rectangle(0, 0, 600, 480, fill="brown")
-        self.canvas.create_line(0, 0, 600, 480, width=2)
-        self.canvas.create_line(600, 0, 0, 480, width=2)
-        self.canvas.create_line(600, 240, 0, 240, width=2)
-        self.canvas.create_line(300, 0, 300, 480, width=2)
+        self.canvas.create_line(0, 0, 600, 480, width=2, fill="white")
+        self.canvas.create_line(600, 0, 0, 480, width=2, fill="red")
+        self.canvas.create_line(600, 240, 0, 240, width=2, fill="blue")
+        self.canvas.create_line(300, 0, 300, 480, width=2, fill="yellow")
         # create initial text
-        self.text_1 = self.canvas.create_text(300, 240, text="init text", font=("Purisa",22), fill="white")
+        self.text_1 = self.canvas.create_text(300, 240, text="init text", font=("Purisa", 25, "bold"), fill="black")
         return self.canvas, self.text_1
 
 
