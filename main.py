@@ -78,7 +78,8 @@ class MyApp(tkinter.Tk):
         self.subMenu.add_command(label="Exit", command=self.quit)
 
     def statuscreate(self):
-        self.status = tkinter.Label(self.bottomFrame, text='init text', bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W)
+        self.status = tkinter.Label(self.bottomFrame, text='init text', bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W,
+                                    wraplength=600)
         self.status.pack(fill=tkinter.X)
         # return so we can update this object later
         return self.status
@@ -94,7 +95,8 @@ class MyApp(tkinter.Tk):
         self.canvas.create_line(600, 240, 0, 240, width=2, fill="blue")
         self.canvas.create_line(300, 0, 300, 480, width=2, fill="yellow")
         # create initial text
-        self.text_1 = self.canvas.create_text(300, 240, text="init text", font=("Purisa", 25, "bold"), fill="black")
+        self.text_1 = self.canvas.create_text(300, 240, text="init text", font=("Purisa", 25, "bold"), fill="black",
+                                              width=580)
         return self.canvas, self.text_1
 
 
