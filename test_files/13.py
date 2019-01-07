@@ -11,6 +11,6 @@ redLine = canvas.create_line(200, 0, 0, 100, fill="red")
 greenBox = canvas.create_rectangle(75, 25, 125, 50, fill="blue")
 
 canvas.delete(redLine)
-# to delete all... canvas.delete(ALL)
+# to delete all... canvas.delete(tkinter.ALL)
 
 root.mainloop()
