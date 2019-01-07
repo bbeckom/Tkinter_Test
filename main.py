@@ -78,8 +78,9 @@ class MyApp(tkinter.Tk):
         self.subMenu.add_command(label="Exit", command=self.quit)
 
     def statuscreate(self):
+        # create sunken label at bottomFrame... wraplength is set ot window size and height is the lines of text
         self.status = tkinter.Label(self.bottomFrame, text='init text', bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W,
-                                    wraplength=600)
+                                    wraplength=600, height=1)
         self.status.pack(fill=tkinter.X)
         # return so we can update this object later
         return self.status
