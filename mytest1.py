@@ -38,6 +38,5 @@ class MyApp(tkinter.Tk):
         return self.status
 
 
-
 app = MyApp()
 app.mainloop()
