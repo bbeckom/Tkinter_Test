@@ -10,11 +10,13 @@ def SimplePrint(val=''):
     app.statusbar.config(text="Text printed")
     app.mainwindowCanvas.itemconfigure(app.mainwindowText, text="Text printed")
     print("Text printed")
-    app.storedendtry1text = "Text printed"
+    app.storedendtry1Text = "Text printed"
+
 
 # use downloaded pyperclip package to store to system clipboard
 def SimpleCopy():
-    pyperclip.copy(app.storedendtry1text)
+    pyperclip.copy(app.storedendtry1Text)
+
 
 class MyApp(tkinter.Tk):
     def __init__(self):
@@ -33,8 +35,8 @@ class MyApp(tkinter.Tk):
         # create entry fields and set values
         self.entries = self.entryFields()
         self.entry1 = self.entries[0]
-        self.entry1text = self.entries[1]
-        self.storedendtry1text = "init text"
+        self.entry1Text = self.entries[1]
+        self.storedendtry1Text = "init text"
         # create buttons
         self.buttons = self.buttonsCreate()
         # create menu
@@ -55,10 +57,8 @@ class MyApp(tkinter.Tk):
         mainwindowText = self.mainwindowText
         mainwindowCanvas.itemconfigure(mainwindowText, text=self.entry1.get())
         # clear out entry field and store current entry
-        self.storedendtry1text = str(self.entry1text.get())
-        self.entry1text.set("")
-
-
+        self.storedendtry1Text = str(self.entry1Text.get())
+        self.entry1Text.set("")
 
     def menucreate(self):
         # create menu and set to app with self.config
@@ -103,13 +103,11 @@ class MyApp(tkinter.Tk):
 
     def entryFields(self):
         # entry field
-        self.entry1text = tkinter.StringVar()
-        self.entry1 = tkinter.Entry(self.topFrame, textvariable=self.entry1text)
-        self.entry1text.set("")
+        self.entry1Text = tkinter.StringVar()
+        self.entry1 = tkinter.Entry(self.topFrame, textvariable=self.entry1Text)
+        self.entry1Text.set("")
         self.entry1.pack(side=tkinter.LEFT, fill=tkinter.X, expand=True)
-        return self.entry1, self.entry1text
-
-
+        return self.entry1, self.entry1Text
 
 
 # start app
