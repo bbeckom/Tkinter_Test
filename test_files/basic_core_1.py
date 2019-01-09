@@ -8,13 +8,13 @@ import pyperclip
 def SimplePrint(val=''):
     # call the app variable that is created upon execution and change statusbar and canvas text to static string
     app.statusbar.config(text="Text printed")
-    app.logoCanvas.itemconfigure(app.logoText, text="Text printed")
+    app.mainwindowCanvas.itemconfigure(app.mainwindowText, text="Text printed")
     print("Text printed")
-    app.storedendtry = "Text printed"
+    app.storedendtry1text = "Text printed"
 
 # use downloaded pyperclip package to store to system clipboard
 def SimpleCopy():
-    pyperclip.copy(app.storedendtry)
+    pyperclip.copy(app.storedendtry1text)
 
 class MyApp(tkinter.Tk):
     def __init__(self):
@@ -27,20 +27,16 @@ class MyApp(tkinter.Tk):
         self.bottomFrame = tkinter.Frame(self)
         self.bottomFrame.pack(side=tkinter.BOTTOM, fill=tkinter.X)
         # put in canvas
-        self.myLogo = self.myCanvas()
-        self.logoCanvas = self.myLogo[0]
-        self.logoText = self.myLogo[1]
-        # entry field
-        self.entrytext = tkinter.StringVar()
-        self.entry = tkinter.Entry(self.topFrame, textvariable=self.entrytext)
-        self.entrytext.set("")
-        # store current entry
-        self.storedendtry = "init text"
-        # button for entry field
-        self.getButton = tkinter.Button(self.topFrame, text="Get Input", command=self.on_button)
-        # pack button and entry field
-        self.getButton.pack(side=tkinter.RIGHT)
-        self.entry.pack(side=tkinter.LEFT, fill=tkinter.X, expand=True)
+        self.mainwindow = self.myCanvas()
+        self.mainwindowCanvas = self.mainwindow[0]
+        self.mainwindowText = self.mainwindow[1]
+        # create entry fields and set values
+        self.entries = self.entryFields()
+        self.entry1 = self.entries[0]
+        self.entry1text = self.entries[1]
+        self.storedendtry1text = "init text"
+        # create buttons
+        self.buttons = self.buttonsCreate()
         # create menu
         self.mainMenu = self.menucreate()
         # create status bar
@@ -51,16 +47,16 @@ class MyApp(tkinter.Tk):
         print("init text")
 
     def on_button(self, event=''):
-        print(self.entry.get())
+        print(self.entry1.get())
         # reconfigure statusbar to display entry text
-        self.statusbar.config(text=self.entry.get())
+        self.statusbar.config(text=self.entry1.get())
         # reconfigure logo text object, I returned the canvas and text objects created in myCanvas
-        logoCanvas = self.logoCanvas
-        logoText = self.logoText
-        logoCanvas.itemconfigure(logoText, text=self.entry.get())
+        mainwindowCanvas = self.mainwindowCanvas
+        mainwindowText = self.mainwindowText
+        mainwindowCanvas.itemconfigure(mainwindowText, text=self.entry1.get())
         # clear out entry field and store current entry
-        self.storedendtry = str(self.entrytext.get())
-        self.entrytext.set("")
+        self.storedendtry1text = str(self.entry1text.get())
+        self.entry1text.set("")
 
 
 
@@ -99,6 +95,21 @@ class MyApp(tkinter.Tk):
         self.text_1 = self.canvas.create_text(300, 240, text="init text", font=("Purisa", 25, "bold"), fill="black",
                                               width=580)
         return self.canvas, self.text_1
+
+    def buttonsCreate(self):
+        # button for entry field
+        self.getButton = tkinter.Button(self.topFrame, text="Get Input", command=self.on_button)
+        self.getButton.pack(side=tkinter.RIGHT)
+
+    def entryFields(self):
+        # entry field
+        self.entry1text = tkinter.StringVar()
+        self.entry1 = tkinter.Entry(self.topFrame, textvariable=self.entry1text)
+        self.entry1text.set("")
+        self.entry1.pack(side=tkinter.LEFT, fill=tkinter.X, expand=True)
+        return self.entry1, self.entry1text
+
+
 
 
 # start app
