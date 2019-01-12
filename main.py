@@ -12,7 +12,7 @@ def SimplePrint(val=''):
     print("Text printed")
     app.storedendtry1Text = "Text printed"
 
-
+#test
 # use downloaded pyperclip package to store to system clipboard
 def SimpleCopy():
     pyperclip.copy(app.storedendtry1Text)
