@@ -8,7 +8,7 @@ import pyperclip
 def simple_print(val=''):
     # call the app variable that is created upon execution and change statusbar and canvas text to static string
     app.status_bar.config(text="Text printed")
-    app.mainwindowCanvas.itemconfigure(app.mainwindowText, text="Text printed")
+    app.main_window_canvas.itemconfigure(app.main_window_text, text="Text printed")
     print("Text printed")
     app.stored_entry_1_text = "Text printed"
 
@@ -31,9 +31,9 @@ class MyApp(tkinter.Tk):
         self.bottomFrame = tkinter.Frame(self)
         self.bottomFrame.pack(side=tkinter.BOTTOM, fill=tkinter.X)
         # put in canvas
-        self.mainwindow = self.myCanvas()
-        self.mainwindowCanvas = self.mainwindow[0]
-        self.mainwindowText = self.mainwindow[1]
+        self.main_window = self.main_window()
+        self.main_window_canvas = self.main_window[0]
+        self.main_window_text = self.main_window[1]
         # create entry fields and set values
         self.entries = self.entry_fields()
         self.entry1 = self.entries[0]
@@ -42,9 +42,9 @@ class MyApp(tkinter.Tk):
         # create buttons
         self.buttons_create()
         # create menu
-        self.menucreate()
+        self.menu_create()
         # create status bar
-        self.status_bar = self.statuscreate()
+        self.status_bar = self.status_create()
         # bind enter key to push getButton
         self.bind('<Return>', self.on_button)
         # print init text to console
@@ -55,14 +55,14 @@ class MyApp(tkinter.Tk):
         # reconfigure status bar to display entry text
         self.status_bar.config(text=self.entry1.get())
         # reconfigure logo text object, I returned the canvas and text objects created in myCanvas
-        main_window_canvas = self.mainwindowCanvas
-        main_window_text = self.mainwindowText
+        main_window_canvas = self.main_window_canvas
+        main_window_text = self.main_window_text
         main_window_canvas.itemconfigure(main_window_text, text=self.entry1.get())
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(self.entry1Text.get())
-        self.entry1Text.set("")
+        self.entry1Text.set('')
 
-    def menucreate(self):
+    def menu_create(self):
         # create menu and set to app with self.config
         main_menu = tkinter.Menu(self)
         self.config(menu=main_menu)
@@ -75,7 +75,7 @@ class MyApp(tkinter.Tk):
         sub_menu.add_separator()
         sub_menu.add_command(label="Exit", command=self.quit)
 
-    def statuscreate(self):
+    def status_create(self):
         # create sunken label at bottomFrame... wrap length is set ot window size and height is the lines of text
         status = tkinter.Label(self.bottomFrame, text='init text', bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W,
                                wraplength=600, height=1)
@@ -83,7 +83,7 @@ class MyApp(tkinter.Tk):
 
         return status
 
-    def myCanvas(self):
+    def main_window(self):
         # create logo space
         canvas = tkinter.Canvas(self.topFrame, width=600, height=480)
         canvas.pack()
@@ -108,7 +108,7 @@ class MyApp(tkinter.Tk):
         # entry field 1
         entry1_text = tkinter.StringVar()
         entry1 = tkinter.Entry(self.topFrame, textvariable=entry1_text)
-        entry1_text.set("")
+        entry1_text.set('')
         entry1.pack(side=tkinter.LEFT, fill=tkinter.X, expand=True)
 
         return entry1, entry1_text
