@@ -8,7 +8,7 @@ import pyperclip
 def simple_print(val=''):
     # call the app variable that is created upon execution and change statusbar and canvas text to static string
     app.status_bar.config(text="Text printed")
-    app.main_window_canvas.itemconfigure(app.main_window_text, text="Text printed")
+    app.mainwindow.insert(tkinter.INSERT, "Text printed")
     print("Text printed")
     app.stored_entry_1_text = "Text printed"
 
@@ -34,6 +34,12 @@ class MyApp(tkinter.Tk):
         # new main window area
         self.mainwindow = tkinter.Text(self.topFrame, bg="white", fg="black")
         self.mainwindow.pack(side=tkinter.TOP, expand=1)
+        # set default text
+        self.mainwindow.insert(tkinter.INSERT, "original text")
+        # delete default text
+        self.mainwindow.delete(1.0, tkinter.END)
+        # set new default text
+        self.mainwindow.insert(tkinter.INSERT, "next set of text")
         # put in canvas
         # create entry fields and set values
         self.entries = self.entry_fields()
@@ -47,7 +53,7 @@ class MyApp(tkinter.Tk):
         # create status bar
         self.status_bar = self.status_create()
         # bind enter key to push getButton
-        self.bind('<Return>', simple_print)
+        self.bind('<Return>', self.on_button)
         # print init text to console
         print("init text")
 
@@ -55,10 +61,10 @@ class MyApp(tkinter.Tk):
         print(self.entry1.get())
         # reconfigure status bar to display entry text
         self.status_bar.config(text=self.entry1.get())
-        # reconfigure logo text object, I returned the canvas and text objects created in myCanvas
-        main_window_canvas = self.main_window_canvas
-        main_window_text = self.main_window_text
-        main_window_canvas.itemconfigure(main_window_text, text=self.entry1.get())
+        # delete text entry area
+        self.mainwindow.delete(1.0, tkinter.END)
+        # add new content to text are
+        self.mainwindow.insert(tkinter.INSERT, self.entry1.get())
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(self.entry1Text.get())
         self.entry1Text.set('')
