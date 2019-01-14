@@ -9,10 +9,10 @@ def simple_print(val=''):
     # call the app variable that is created upon execution and change statusbar and main text to static string
     app.status_bar.config(text="Text printed")
     # set main window text then disable again
-    app.mainwindow.config(state=tkinter.NORMAL)
-    app.mainwindow.delete(1.0, tkinter.END)
+    app.enable_main_window()
+    app.delete_main_window()
     app.mainwindow.insert(tkinter.INSERT, "Text printed")
-    app.mainwindow.config(state=tkinter.DISABLED)
+    app.disable_main_window()
     print("Text printed")
     app.stored_entry_1_text = "Text printed"
 
@@ -28,15 +28,15 @@ class MyApp(tkinter.Tk):
         # set title
         self.title("Test Program")
         # remove maximize button and set window size
-        #self.resizable(0, 0)
+        self.resizable(0, 0)
         self.geometry("600x480")
         # new main window area
         self.mainwindow = tkinter.Text(self, bg="white", fg="black")
         self.mainwindow.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
         # set default main window text... using state to enable and disable the text box
-        self.mainwindow.config(state=tkinter.NORMAL)
+        self.enable_main_window()
         self.mainwindow.insert(tkinter.INSERT, "INIT TEXT")
-        self.mainwindow.config(state=tkinter.DISABLED)
+        self.disable_main_window()
         # create frame sections for pack layout
         self.topFrame = tkinter.Frame(self)
         self.topFrame.pack(fill=tkinter.X)
@@ -63,14 +63,26 @@ class MyApp(tkinter.Tk):
         # reconfigure status bar to display entry text
         self.status_bar.config(text=self.entry1.get())
         # delete text entry area
-        self.mainwindow.config(state=tkinter.NORMAL)
-        self.mainwindow.delete(1.0, tkinter.END)
+        self.enable_main_window()
+        self.delete_main_window()
         # add new content to text are
         self.mainwindow.insert(tkinter.INSERT, self.entry1.get())
-        self.mainwindow.config(state=tkinter.DISABLED)
+        self.disable_main_window()
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(self.entry1Text.get())
         self.entry1Text.set('')
+
+    def enable_main_window(self):
+        window = self.mainwindow
+        window.config(state=tkinter.NORMAL)
+
+    def disable_main_window(self):
+        window = self.mainwindow
+        window.config(state=tkinter.DISABLED)
+
+    def delete_main_window(self):
+        window = self.mainwindow
+        window.delete(1.0, tkinter.END)
 
     def menu_create(self):
         # create menu and set to app with self.config
@@ -82,6 +94,9 @@ class MyApp(tkinter.Tk):
         # File submenu options
         sub_menu.add_command(label="Print text", command=simple_print)
         sub_menu.add_command(label="Copy current text", command=simple_copy)
+        sub_menu.add_separator()
+        sub_menu.add_command(label="Enable text field", command=self.enable_main_window)
+        sub_menu.add_command(label="Disable text field", command=self.disable_main_window)
         sub_menu.add_separator()
         sub_menu.add_command(label="Exit", command=self.quit)
 
