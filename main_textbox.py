@@ -8,8 +8,11 @@ import pyperclip
 def simple_print(val=''):
     # call the app variable that is created upon execution and change statusbar and main text to static string
     app.status_bar.config(text="Text printed")
+    # set main window text then disable again
+    app.mainwindow.config(state=tkinter.NORMAL)
     app.mainwindow.delete(1.0, tkinter.END)
     app.mainwindow.insert(tkinter.INSERT, "Text printed")
+    app.mainwindow.config(state=tkinter.DISABLED)
     print("Text printed")
     app.stored_entry_1_text = "Text printed"
 
@@ -30,13 +33,15 @@ class MyApp(tkinter.Tk):
         # new main window area
         self.mainwindow = tkinter.Text(self, bg="white", fg="black")
         self.mainwindow.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
+        # set default main window text... using state to enable and disable the text box
+        self.mainwindow.config(state=tkinter.NORMAL)
+        self.mainwindow.insert(tkinter.INSERT, "INIT TEXT")
+        self.mainwindow.config(state=tkinter.DISABLED)
         # create frame sections for pack layout
         self.topFrame = tkinter.Frame(self)
         self.topFrame.pack(fill=tkinter.X)
         self.bottomFrame = tkinter.Frame(self)
         self.bottomFrame.pack(side=tkinter.BOTTOM, fill=tkinter.X)
-        # set default main window text
-        self.mainwindow.insert(tkinter.INSERT, "INIT TEXT")
         # create entry fields and set values
         self.entries = self.entry_fields()
         self.entry1 = self.entries[0]
@@ -58,9 +63,11 @@ class MyApp(tkinter.Tk):
         # reconfigure status bar to display entry text
         self.status_bar.config(text=self.entry1.get())
         # delete text entry area
+        self.mainwindow.config(state=tkinter.NORMAL)
         self.mainwindow.delete(1.0, tkinter.END)
         # add new content to text are
         self.mainwindow.insert(tkinter.INSERT, self.entry1.get())
+        self.mainwindow.config(state=tkinter.DISABLED)
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(self.entry1Text.get())
         self.entry1Text.set('')
