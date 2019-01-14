@@ -6,8 +6,9 @@ import pyperclip
 
 # simple function to test commands for menu selections quickly
 def simple_print(val=''):
-    # call the app variable that is created upon execution and change statusbar and canvas text to static string
+    # call the app variable that is created upon execution and change statusbar and main text to static string
     app.status_bar.config(text="Text printed")
+    app.mainwindow.delete(1.0, tkinter.END)
     app.mainwindow.insert(tkinter.INSERT, "Text printed")
     print("Text printed")
     app.stored_entry_1_text = "Text printed"
@@ -35,12 +36,7 @@ class MyApp(tkinter.Tk):
         self.mainwindow = tkinter.Text(self.topFrame, bg="white", fg="black")
         self.mainwindow.pack(side=tkinter.TOP, expand=1)
         # set default text
-        self.mainwindow.insert(tkinter.INSERT, "original text")
-        # delete default text
-        self.mainwindow.delete(1.0, tkinter.END)
-        # set new default text
-        self.mainwindow.insert(tkinter.INSERT, "next set of text")
-        # put in canvas
+        self.mainwindow.insert(tkinter.INSERT, "INIT TEXT")
         # create entry fields and set values
         self.entries = self.entry_fields()
         self.entry1 = self.entries[0]
