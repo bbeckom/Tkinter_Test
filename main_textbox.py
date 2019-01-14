@@ -25,17 +25,17 @@ class MyApp(tkinter.Tk):
         # set title
         self.title("Test Program")
         # remove maximize button and set window size
-        self.resizable(0, 0)
+        #self.resizable(0, 0)
         self.geometry("600x480")
+        # new main window area
+        self.mainwindow = tkinter.Text(self, bg="white", fg="black")
+        self.mainwindow.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
         # create frame sections for pack layout
         self.topFrame = tkinter.Frame(self)
         self.topFrame.pack(fill=tkinter.X)
         self.bottomFrame = tkinter.Frame(self)
         self.bottomFrame.pack(side=tkinter.BOTTOM, fill=tkinter.X)
-        # new main window area
-        self.mainwindow = tkinter.Text(self.topFrame, bg="white", fg="black")
-        self.mainwindow.pack(side=tkinter.TOP, expand=1)
-        # set default text
+        # set default main window text
         self.mainwindow.insert(tkinter.INSERT, "INIT TEXT")
         # create entry fields and set values
         self.entries = self.entry_fields()
@@ -82,7 +82,7 @@ class MyApp(tkinter.Tk):
         # create sunken label at bottomFrame... wrap length is set ot window size and height is the lines of text
         status = tkinter.Label(self.bottomFrame, text='init text', bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W,
                                wraplength=600, height=1)
-        status.pack(fill=tkinter.X)
+        status.pack(side=tkinter.BOTTOM, fill=tkinter.X)
 
         return status
 
