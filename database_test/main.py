@@ -168,14 +168,14 @@ class MyApp(tkinter.Tk):
         entry1_text.set('')
         entry1_label = tkinter.Label(self.topFrame, text="NAME_table", anchor=tkinter.E, width=10)
         entry1_label.pack(side=tkinter.LEFT)
-        entry1.pack(side=tkinter.LEFT, fill=tkinter.X, expand=True)
+        entry1.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=True)
         # entry field 2
         entry2_text = tkinter.StringVar()
         entry2 = tkinter.Entry(self.midFrame, textvariable=entry2_text)
         entry2_text.set('')
         entry2_label = tkinter.Label(self.midFrame, text="SQL", anchor=tkinter.E, width=10)
         entry2_label.pack(side=tkinter.LEFT)
-        entry2.pack(side=tkinter.LEFT, fill=tkinter.X, expand=True)
+        entry2.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=True)
 
         return entry1, entry1_text, entry2, entry2_text
 
