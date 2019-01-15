@@ -33,6 +33,13 @@ def remove_name(name, val=''):
     return names
 
 
+def sql_query(query, val=''):
+    query = str(query)
+    result = cursor.execute(query)
+    db.commit()
+    return result
+
+
 # remove_name("test")
 # add_name("test")
 

@@ -38,12 +38,16 @@ class MyApp(tkinter.Tk):
         # create frame sections for pack layout
         self.topFrame = tkinter.Frame(self)
         self.topFrame.pack(fill=tkinter.X)
+        self.midFrame = tkinter.Frame(self)
+        self.midFrame.pack(fill=tkinter.X)
         self.bottomFrame = tkinter.Frame(self)
         self.bottomFrame.pack(side=tkinter.BOTTOM, fill=tkinter.X)
         # create entry fields and set values
         self.entries = self.entry_fields()
         self.entry1 = self.entries[0]
         self.entry1Text = self.entries[1]
+        self.entry2 = self.entries[2]
+        self.entry2Text = self.entries[3]
         self.stored_entry_1_text = "init text"
         # create buttons
         self.buttons_create()
@@ -81,6 +85,20 @@ class MyApp(tkinter.Tk):
         self.delete_main_window()
         # add new content to text are
         self.mainwindow.insert(tkinter.INSERT, str(result))
+
+    def sql_query_button(self, val=''):
+        print(self.entry2.get())
+        query = self.entry2.get()
+        # reconfigure status bar to display entry text
+        result = db.sql_query(query)
+        result = result.fetchall()
+        self.status_bar.config(text=result)
+        # delete text entry area
+        self.delete_main_window()
+        # add new content to text are
+        self.mainwindow.insert(tkinter.INSERT, str(result))
+        # clear out entry field and store current entry
+        self.stored_entry_1_text = str(result)
 
     def add_button(self, val=''):
         print(self.entry1.get())
@@ -147,7 +165,7 @@ class MyApp(tkinter.Tk):
         return status
 
     def buttons_create(self):
-        # button for entry field
+        # entry 1 buttons
         lind_button = tkinter.Button(self.topFrame, text="List Ind", command=self.list_name_button)
         lind_button.pack(side=tkinter.RIGHT)
 
@@ -159,6 +177,9 @@ class MyApp(tkinter.Tk):
 
         add_button = tkinter.Button(self.topFrame, text="Add name", command=self.add_button)
         add_button.pack(side=tkinter.RIGHT)
+        # entry 2 buttons
+        sql_button = tkinter.Button(self.midFrame, text="Run query", command=self.sql_query_button)
+        sql_button.pack(side=tkinter.RIGHT)
 
     def entry_fields(self):
         # entry field 1
@@ -166,8 +187,13 @@ class MyApp(tkinter.Tk):
         entry1 = tkinter.Entry(self.topFrame, textvariable=entry1_text)
         entry1_text.set('')
         entry1.pack(side=tkinter.LEFT, fill=tkinter.X, expand=True)
+        # entry field 2
+        entry2_text = tkinter.StringVar()
+        entry2 = tkinter.Entry(self.midFrame, textvariable=entry2_text)
+        entry2_text.set('')
+        entry2.pack(side=tkinter.LEFT, fill=tkinter.X, expand=True)
 
-        return entry1, entry1_text
+        return entry1, entry1_text, entry2, entry2_text
 
 
 # start app
