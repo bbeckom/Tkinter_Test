@@ -1,4 +1,4 @@
-# Simple program that will echo what is put into input field
+# Simple program to mess around with a SQLite DB
 
 import tkinter
 import database_test.db_actions as db
@@ -32,63 +32,67 @@ class MyApp(tkinter.Tk):
         self.entry2 = self.entries[2]
         self.entry2Text = self.entries[3]
         self.stored_entry_1_text = "init text"
+        self.stored_entry_2_text = "init text"
         # create buttons
         self.buttons_create()
         # create menu
         self.menu_create()
         # create status bar
         self.status_bar = self.status_create()
-        # bind enter key to push getButton
-        self.bind('<Return>', self.add_button)
         # print init text to console
         print("init text")
 
     def list_name_button(self, val=''):
-        print(self.entry1.get())
-        name = self.entry1.get()
-        # reconfigure status bar to display entry text
+        entry1 = self.entry1.get()
+        print(entry1)
+        name = entry1
+        # run db list_individual command with what was put into entry1
         result = db.list_individual(name)
         result = result.fetchall()
+        # reconfigure status bar to display entry1 text
         self.status_bar.config(text=result)
         # delete text entry area
         self.delete_main_window()
-        # add new content to text are
+        # add new content to text area
         self.mainwindow.insert(tkinter.INSERT, str(result))
-        # clear out entry field and store current entry
+        # store current entry
         self.stored_entry_1_text = str(result)
 
     def list_all_button(self, val=''):
-        print(self.entry1.get())
-        name = self.entry1.get()
-        # reconfigure status bar to display entry text
+        entry1 = self.entry1.get()
+        print(entry1)
+        # run list all db function
         result = db.list_names()
         result = result.fetchall()
+        # reconfigure status bar to display entry text
         self.status_bar.config(text=result)
         # delete text entry area
         self.delete_main_window()
-        # add new content to text are
+        # add new content to text area
         self.mainwindow.insert(tkinter.INSERT, str(result))
 
     def sql_query_button(self, val=''):
-        print(self.entry2.get())
-        query = self.entry2.get()
-        # reconfigure status bar to display entry text
-        result = db.sql_query(query)
+        entry2 = self.entry2.get()
+        print(entry2)
+        # run db query function
+        result = db.sql_query(entry2)
         result = result.fetchall()
+        # reconfigure status bar to display entry text
         self.status_bar.config(text=result)
         # delete text entry area
         self.delete_main_window()
         # add new content to text are
         self.mainwindow.insert(tkinter.INSERT, str(result))
         # clear out entry field and store current entry
-        self.stored_entry_1_text = str(result)
+        self.stored_entry_2_text = str(result)
 
     def add_button(self, val=''):
-        print(self.entry1.get())
-        name = self.entry1.get()
-        # reconfigure status bar to display entry text
-        result = db.add_name(name)
+        entry1 = self.entry1.get()
+        print(entry1)
+        # run db add function
+        result = db.add_name(entry1)
         result = result.fetchall()
+        # reconfigure status bar to display entry text
         self.status_bar.config(text=result)
         # delete text entry area
         self.delete_main_window()
@@ -98,11 +102,12 @@ class MyApp(tkinter.Tk):
         self.stored_entry_1_text = str(result)
 
     def delete_button(self, val=''):
-        print(self.entry1.get())
-        name = self.entry1.get()
-        # reconfigure status bar to display entry text
-        result = db.remove_name(name)
+        entry1 = self.entry1.get()
+        print(entry1)
+        # run db delete command
+        result = db.remove_name(entry1)
         result = result.fetchall()
+        # reconfigure status bar to display entry text
         self.status_bar.config(text=result)
         # delete text entry area
         self.delete_main_window()
@@ -137,7 +142,7 @@ class MyApp(tkinter.Tk):
         sub_menu.add_command(label="Exit", command=self.quit)
 
     def status_create(self):
-        # create sunken label at bottomFrame... wrap length is set ot window size and height is the lines of text
+        # status bar at bottom of app
         status = tkinter.Label(self.bottomFrame, text='init text', bd=1, relief=tkinter.SUNKEN, anchor=tkinter.W,
                                wraplength=600, height=1)
         status.pack(side=tkinter.BOTTOM, fill=tkinter.X)
@@ -162,14 +167,14 @@ class MyApp(tkinter.Tk):
         sql_button.pack(side=tkinter.RIGHT)
 
     def entry_fields(self):
-        # entry field 1
+        # entry field 1 and label
         entry1_text = tkinter.StringVar()
         entry1 = tkinter.Entry(self.topFrame, textvariable=entry1_text)
         entry1_text.set('')
         entry1_label = tkinter.Label(self.topFrame, text="NAME_table", anchor=tkinter.E, width=10)
         entry1_label.pack(side=tkinter.LEFT)
         entry1.pack(side=tkinter.LEFT, fill=tkinter.BOTH, expand=True)
-        # entry field 2
+        # entry field 2 and label
         entry2_text = tkinter.StringVar()
         entry2 = tkinter.Entry(self.midFrame, textvariable=entry2_text)
         entry2_text.set('')
