@@ -2,7 +2,6 @@
 
 import tkinter
 import database_test.db_actions as db
-import sqlite3
 
 
 class MyApp(tkinter.Tk):

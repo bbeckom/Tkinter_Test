@@ -1,3 +1,5 @@
+# run this to create a db file or start out fresh with default
+
 import os
 import sqlite3
 
