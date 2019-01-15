@@ -55,18 +55,6 @@ class MyApp(tkinter.Tk):
         # print init text to console
         print("init text")
 
-    def on_button(self, event=''):
-        print(self.entry1.get())
-        # reconfigure status bar to display entry text
-        self.status_bar.config(text=self.entry1.get())
-        # delete text entry area
-        self.delete_main_window()
-        # add new content to text are
-        self.mainwindow.insert(tkinter.INSERT, self.entry1.get())
-        # clear out entry field and store current entry
-        self.stored_entry_1_text = str(self.entry1Text.get())
-        self.entry1Text.set('')
-
     def list_name_button(self, val=''):
         print(self.entry1.get())
         name = self.entry1.get()
@@ -80,7 +68,18 @@ class MyApp(tkinter.Tk):
         self.mainwindow.insert(tkinter.INSERT, str(result))
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(result)
-        self.entry1Text.set('')
+
+    def list_all_button(self, val=''):
+        print(self.entry1.get())
+        name = self.entry1.get()
+        # reconfigure status bar to display entry text
+        result = db.list_names()
+        result = result.fetchall()
+        self.status_bar.config(text=result)
+        # delete text entry area
+        self.delete_main_window()
+        # add new content to text are
+        self.mainwindow.insert(tkinter.INSERT, str(result))
 
     def add_button(self, val=''):
         print(self.entry1.get())
@@ -95,8 +94,20 @@ class MyApp(tkinter.Tk):
         self.mainwindow.insert(tkinter.INSERT, str(result))
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(result)
-        self.entry1Text.set('')
 
+    def delete_button(self, val=''):
+        print(self.entry1.get())
+        name = self.entry1.get()
+        # reconfigure status bar to display entry text
+        result = db.remove_name(name)
+        result = result.fetchall()
+        self.status_bar.config(text=result)
+        # delete text entry area
+        self.delete_main_window()
+        # add new content to text are
+        self.mainwindow.insert(tkinter.INSERT, str(result))
+        # clear out entry field and store current entry
+        self.stored_entry_1_text = str(result)
 
     def enable_main_window(self):
         window = self.mainwindow
@@ -141,6 +152,12 @@ class MyApp(tkinter.Tk):
 
         lind_button = tkinter.Button(self.topFrame, text="List Ind", command=self.list_name_button)
         lind_button.pack(side=tkinter.RIGHT)
+
+        lall_button = tkinter.Button(self.topFrame, text="List All", command=self.list_all_button)
+        lall_button.pack(side=tkinter.RIGHT)
+
+        del_button = tkinter.Button(self.topFrame, text="Del name", command=self.delete_button)
+        del_button.pack(side=tkinter.RIGHT)
 
     def entry_fields(self):
         # entry field 1
