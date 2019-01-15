@@ -10,7 +10,8 @@ def add_name(name, val=''):
     add = cursor.execute("INSERT INTO NAME_table (NAME)"
                    "VALUES ('%s')" % name)
     db.commit()
-    return add
+    added_name = cursor.execute("SELECT * FROM NAME_table WHERE NAME='%s' ORDER BY ID DESC LIMIT 1" % name)
+    return added_name
 
 
 def list_names(val=''):
@@ -26,6 +27,7 @@ def list_individual(name, val=''):
 def remove_name(name, val=''):
     name = str(name)
     remove = cursor.execute("DELETE FROM NAME_table WHERE NAME='%s'" % name)
+    db.commit()
     return remove
 
 
