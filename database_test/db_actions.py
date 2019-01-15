@@ -41,12 +41,3 @@ def sql_query(query, val=''):
         return result.fetchall()
     except Exception as result:
         return result
-
-
-
-# remove_name("test")
-# add_name("test")
-
-names = list_names()
-for na in names:
-    print(na)
