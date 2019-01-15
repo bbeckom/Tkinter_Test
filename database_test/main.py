@@ -1,24 +1,7 @@
 # Simple program that will echo what is put into input field
 
 import tkinter
-import pyperclip
 import database_test.db_actions as db
-
-
-# simple function to test commands for menu selections quickly
-def simple_print(val=''):
-    # call the app variable that is created upon execution and change statusbar and main text to static string
-    app.status_bar.config(text="Text printed")
-    # set main window text then disable again
-    app.delete_main_window()
-    app.mainwindow.insert(tkinter.INSERT, "Text printed")
-    print("Text printed")
-    app.stored_entry_1_text = "Text printed"
-
-
-# use downloaded pyperclip package to store to system clipboard
-def simple_copy():
-    pyperclip.copy(app.stored_entry_1_text)
 
 
 class MyApp(tkinter.Tk):
@@ -148,9 +131,6 @@ class MyApp(tkinter.Tk):
         sub_menu = tkinter.Menu(main_menu, tearoff=0)
         main_menu.add_cascade(label="File", menu=sub_menu)
         # File submenu options
-        sub_menu.add_command(label="Print text", command=simple_print)
-        sub_menu.add_command(label="Copy current text", command=simple_copy)
-        sub_menu.add_separator()
         sub_menu.add_command(label="Enable text field", command=self.enable_main_window)
         sub_menu.add_command(label="Disable text field", command=self.disable_main_window)
         sub_menu.add_separator()
