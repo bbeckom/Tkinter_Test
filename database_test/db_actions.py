@@ -28,7 +28,8 @@ def remove_name(name, val=''):
     name = str(name)
     remove = cursor.execute("DELETE FROM NAME_table WHERE NAME='%s'" % name)
     db.commit()
-    return remove
+    names = cursor.execute("SELECT * FROM NAME_table")
+    return names
 
 
 
