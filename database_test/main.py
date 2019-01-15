@@ -25,7 +25,7 @@ class MyApp(tkinter.Tk):
     def __init__(self):
         tkinter.Tk.__init__(self)
         # set title
-        self.title("Test Program")
+        self.title("Database Test Program")
         # remove maximize button and set window size
         self.resizable(0, 0)
         self.geometry("600x480")
@@ -33,7 +33,8 @@ class MyApp(tkinter.Tk):
         self.mainwindow = tkinter.Text(self, bg="white", fg="black")
         self.mainwindow.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
         # set default main window text... using state to enable and disable the text box
-        self.mainwindow.insert(tkinter.INSERT, "INIT TEXT")
+        self.mainwindow.insert(tkinter.INSERT, "Simple SQLite DB program to mess around with.\n"
+                                               "Choose a button below.")
         # create frame sections for pack layout
         self.topFrame = tkinter.Frame(self)
         self.topFrame.pack(fill=tkinter.X)
@@ -147,9 +148,6 @@ class MyApp(tkinter.Tk):
 
     def buttons_create(self):
         # button for entry field
-        add_button = tkinter.Button(self.topFrame, text="Add name", command=self.add_button)
-        add_button.pack(side=tkinter.RIGHT)
-
         lind_button = tkinter.Button(self.topFrame, text="List Ind", command=self.list_name_button)
         lind_button.pack(side=tkinter.RIGHT)
 
@@ -158,6 +156,9 @@ class MyApp(tkinter.Tk):
 
         del_button = tkinter.Button(self.topFrame, text="Del name", command=self.delete_button)
         del_button.pack(side=tkinter.RIGHT)
+
+        add_button = tkinter.Button(self.topFrame, text="Add name", command=self.add_button)
+        add_button.pack(side=tkinter.RIGHT)
 
     def entry_fields(self):
         # entry field 1
