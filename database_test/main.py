@@ -2,6 +2,7 @@
 
 import tkinter
 import database_test.db_actions as db
+import sqlite3
 
 
 class MyApp(tkinter.Tk):
@@ -76,7 +77,6 @@ class MyApp(tkinter.Tk):
         print(entry2)
         # run db query function
         result = db.sql_query(entry2)
-        result = result.fetchall()
         # reconfigure status bar to display entry text
         self.status_bar.config(text=result)
         # delete text entry area
