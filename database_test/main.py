@@ -2,6 +2,7 @@
 
 import tkinter
 import pyperclip
+import database_test.db_actions as db
 
 
 # simple function to test commands for menu selections quickly
@@ -50,7 +51,7 @@ class MyApp(tkinter.Tk):
         # create status bar
         self.status_bar = self.status_create()
         # bind enter key to push getButton
-        self.bind('<Return>', self.on_button)
+        self.bind('<Return>', self.add_button)
         # print init text to console
         print("init text")
 
@@ -65,6 +66,37 @@ class MyApp(tkinter.Tk):
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(self.entry1Text.get())
         self.entry1Text.set('')
+
+    def list_name_button(self, val=''):
+        print(self.entry1.get())
+        name = self.entry1.get()
+        # reconfigure status bar to display entry text
+        result = db.list_individual(name)
+        result = result.fetchall()
+        self.status_bar.config(text=result)
+        # delete text entry area
+        self.delete_main_window()
+        # add new content to text are
+        self.mainwindow.insert(tkinter.INSERT, str(result))
+        # clear out entry field and store current entry
+        self.stored_entry_1_text = str(result)
+        self.entry1Text.set('')
+
+    def add_button(self, val=''):
+        print(self.entry1.get())
+        name = self.entry1.get()
+        # reconfigure status bar to display entry text
+        result = db.add_name(name)
+        result = result.fetchall()
+        self.status_bar.config(text=result)
+        # delete text entry area
+        self.delete_main_window()
+        # add new content to text are
+        self.mainwindow.insert(tkinter.INSERT, str(result))
+        # clear out entry field and store current entry
+        self.stored_entry_1_text = str(result)
+        self.entry1Text.set('')
+
 
     def enable_main_window(self):
         window = self.mainwindow
@@ -104,8 +136,11 @@ class MyApp(tkinter.Tk):
 
     def buttons_create(self):
         # button for entry field
-        get_button = tkinter.Button(self.topFrame, text="Get Input", command=self.on_button)
-        get_button.pack(side=tkinter.RIGHT)
+        add_button = tkinter.Button(self.topFrame, text="Add name", command=self.add_button)
+        add_button.pack(side=tkinter.RIGHT)
+
+        lind_button = tkinter.Button(self.topFrame, text="List Ind", command=self.list_name_button)
+        lind_button.pack(side=tkinter.RIGHT)
 
     def entry_fields(self):
         # entry field 1
