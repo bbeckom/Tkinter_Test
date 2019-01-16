@@ -20,3 +20,4 @@
                     Address varchar(255),
                     City varchar(255)
                     )
+-Status bar charlength limit with ...
