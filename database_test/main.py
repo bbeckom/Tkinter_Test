@@ -45,6 +45,14 @@ class MyApp(tkinter.Tk):
         # print init text to console
         print("init text")
 
+    def set_statusbar_text(self, input):
+        status = self.status_bar
+        input = str(input)
+        if len(input) > 105:
+            input = input[:105]
+            input = str(input + "...")
+        status.config(text=input)
+
     def list_name_button(self, val=''):
         entry1 = self.entry1.get()
         print(entry1)
@@ -53,7 +61,7 @@ class MyApp(tkinter.Tk):
         result = db.list_individual(name)
         result = result.fetchall()
         # reconfigure status bar to display entry1 text
-        self.status_bar.config(text=result)
+        self.set_statusbar_text(result)
         # delete text entry area
         self.delete_main_window()
         # add new content to text area
@@ -68,7 +76,7 @@ class MyApp(tkinter.Tk):
         result = db.list_names()
         result = result.fetchall()
         # reconfigure status bar to display entry text
-        self.status_bar.config(text=result)
+        self.set_statusbar_text(result)
         # delete text entry area
         self.delete_main_window()
         # add new content to text area
@@ -80,7 +88,7 @@ class MyApp(tkinter.Tk):
         # run db query function
         result = db.sql_query(entry2)
         # reconfigure status bar to display entry text
-        self.status_bar.config(text=result)
+        self.set_statusbar_text(result)
         # delete text entry area
         self.delete_main_window()
         # add new content to text are
@@ -95,7 +103,7 @@ class MyApp(tkinter.Tk):
         result = db.add_name(entry1)
         result = result.fetchall()
         # reconfigure status bar to display entry text
-        self.status_bar.config(text=result)
+        self.set_statusbar_text(result)
         # delete text entry area
         self.delete_main_window()
         # add new content to text are
@@ -110,7 +118,7 @@ class MyApp(tkinter.Tk):
         result = db.remove_name(entry1)
         result = result.fetchall()
         # reconfigure status bar to display entry text
-        self.status_bar.config(text=result)
+        self.set_statusbar_text(result)
         # delete text entry area
         self.delete_main_window()
         # add new content to text are

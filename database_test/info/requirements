@@ -20,6 +20,6 @@
                     Address varchar(255),
                     City varchar(255)
                     )
--Status bar charlength limit with ...
+-*DONE*Status bar charlength limit with ...
 -add up arrow to scroll through previous commands based upon entry menu chose
 -copy function for what's in current window
