@@ -2,6 +2,7 @@
 
 import tkinter
 import database_test.db_actions as db
+import database_test.help as hp
 
 
 class MyApp(tkinter.Tk):
@@ -127,18 +128,35 @@ class MyApp(tkinter.Tk):
         window = self.mainwindow
         window.delete(1.0, tkinter.END)
 
+    def main_window_print(self, text):
+        # delete existing contents
+        self.delete_main_window()
+        # add new content to text are
+        self.mainwindow.insert(tkinter.INSERT, str(text))
+
     def menu_create(self):
         # create menu and set to app with self.config
         main_menu = tkinter.Menu(self)
         self.config(menu=main_menu)
-        # File menu
-        sub_menu = tkinter.Menu(main_menu, tearoff=0)
-        main_menu.add_cascade(label="File", menu=sub_menu)
+        # create menus
+        file_menu = tkinter.Menu(main_menu, tearoff=0)
+        main_menu.add_cascade(label="File", menu=file_menu)
+        help_menu = tkinter.Menu(main_menu, tearoff=0)
+        main_menu.add_cascade(label="Help", menu=help_menu)
         # File submenu options
-        sub_menu.add_command(label="Enable text field", command=self.enable_main_window)
-        sub_menu.add_command(label="Disable text field", command=self.disable_main_window)
-        sub_menu.add_separator()
-        sub_menu.add_command(label="Exit", command=self.quit)
+        file_menu.add_command(label="Enable text field", command=self.enable_main_window)
+        file_menu.add_command(label="Disable text field", command=self.disable_main_window)
+        file_menu.add_separator()
+        file_menu.add_command(label="Exit", command=self.quit)
+        # Help submenu options
+        help_menu.add_command(label="SELECT:1", command=self.insert_help_1)
+        help_menu.add_command(label="SELECT:2", command=self.insert_help_2)
+
+    def insert_help_1(self):
+        self.main_window_print(hp.insert_help(1))
+
+    def insert_help_2(self):
+        self.main_window_print(hp.insert_help(2))
 
     def status_create(self):
         # status bar at bottom of app

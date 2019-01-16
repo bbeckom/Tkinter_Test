@@ -1,0 +1,22 @@
+# File listing out future planned features
+
+-Add ability to use enter key depending on field selected
+-Add help text for common SQL commands
+    -Make a menu to the right of file called help
+        -Will contain common SQL syntax that outputs to the main window
+            -SELECT
+                -SELECT * FROM NAME_table
+            -INSERT
+                -INSERT INTO NAME_table (NAME) VALUES ("testname2")
+            -DELETE
+                -DELETE FROM NAME_table WHERE NAME="testname1"
+            -WHERE
+                -SELECT * FROM NAME_table WHERE ID=1
+            -CREATE TABLE
+                -CREATE TABLE Persons (
+                    PersonID int,
+                    LastName varchar(255),
+                    FirstName varchar(255),
+                    Address varchar(255),
+                    City varchar(255)
+                    )
