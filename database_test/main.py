@@ -29,8 +29,10 @@ class MyApp(tkinter.Tk):
         # create entry fields and set values
         self.entries = self.entry_fields()
         self.entry1 = self.entries[0]
+        self.entry1.bind("<Return>", self.add_button)
         self.entry1Text = self.entries[1]
         self.entry2 = self.entries[2]
+        self.entry2.bind("<Return>", self.sql_query_button)
         self.entry2Text = self.entries[3]
         self.stored_entry_1_text = "init text"
         self.stored_entry_2_text = "init text"
