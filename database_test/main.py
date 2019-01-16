@@ -48,12 +48,12 @@ class MyApp(tkinter.Tk):
     def set_statusbar_text(self, input):
         status = self.status_bar
         input = str(input)
-        if len(input) > 105:
-            input = input[:105]
+        if len(input) > 95:
+            input = input[:95]
             input = str(input + "...")
         status.config(text=input)
 
-    def list_name_button(self, val=''):
+    def list_name_button(self, *args):
         entry1 = self.entry1.get()
         print(entry1)
         name = entry1
@@ -69,7 +69,7 @@ class MyApp(tkinter.Tk):
         # store current entry
         self.stored_entry_1_text = str(result)
 
-    def list_all_button(self, val=''):
+    def list_all_button(self, *args):
         entry1 = self.entry1.get()
         print(entry1)
         # run list all db function
@@ -82,7 +82,7 @@ class MyApp(tkinter.Tk):
         # add new content to text area
         self.mainwindow.insert(tkinter.INSERT, str(result))
 
-    def sql_query_button(self, val=''):
+    def sql_query_button(self, *args):
         entry2 = self.entry2.get()
         print(entry2)
         # run db query function
@@ -96,7 +96,7 @@ class MyApp(tkinter.Tk):
         # clear out entry field and store current entry
         self.stored_entry_2_text = str(result)
 
-    def add_button(self, val=''):
+    def add_button(self, *args):
         entry1 = self.entry1.get()
         print(entry1)
         # run db add function
@@ -111,7 +111,7 @@ class MyApp(tkinter.Tk):
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(result)
 
-    def delete_button(self, val=''):
+    def delete_button(self, *args):
         entry1 = self.entry1.get()
         print(entry1)
         # run db delete command
