@@ -94,17 +94,10 @@ class MyApp(tkinter.Tk):
         entries = self.entry1_entries
         if len(entries) < -hist_count:
             self.entry1_hist_count = 0
-            return
-        # will use up arrow for self.entry1.bind in init to call this function
-        #
-        # create variable (self.entry1_hist_count) for entry to pull and set init value to 0
-        #
-        # Set off focus value self.entry1_hist_count to 0, then, while focused, run this command which will add -1 to
-        # that count until the count exceeds the value of items in the self.entry1_entries list. The check whether it
-        # exceeds will be done as the first if then statement then will set the value to 0 and run the rest of the
-        # commands.
-        print(hist_count)
-        print(entries[self.entry1_hist_count])
+            self.entry1Text.set('')
+            return "break"  # have to do this because maxosx wants to insert a character when you press up or down
+        self.entry1Text.set(entries[self.entry1_hist_count])
+        return "break"  # have to do this because maxosx wants to insert a character when you press up or down
 
     def entry1_hist_reset(self, *args):
         self.entry1_hist_count = 0
