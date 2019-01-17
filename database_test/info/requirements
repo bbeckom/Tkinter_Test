@@ -1,9 +1,9 @@
 # File listing out future planned features
 
 -In Progress-
-    -add up arrow to scroll through previous commands based upon entry menu chose
+    copy function for what's in current window
 -Future Features-
     -Major-
         set table name to work off of for entry1 field
+        refactor code and move a lot of the functions into a new file and clean up function order
     -Minor-
-        copy function for what's in current window

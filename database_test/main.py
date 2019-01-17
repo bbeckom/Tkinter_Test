@@ -108,7 +108,7 @@ class MyApp(tkinter.Tk):
         return "break"
 
     def entry1_scroll_down(self, *args):
-        # remove a value from the count so that it goes down every time button is pushed
+        # add a value to the count so that it goes up every time button is pushed
         self.entry1_hist_count = self.entry1_hist_count+1
         # if entry1 count returns >= 0 then reset total back to the total entries -1
         if self.entry1_hist_count >= 0:
@@ -134,7 +134,7 @@ class MyApp(tkinter.Tk):
         return "break"
 
     def entry2_scroll_down(self, *args):
-        # remove a value from the count so that it goes down every time button is pushed
+        # add a value to the count so that it goes up every time button is pushed
         self.entry2_hist_count = self.entry2_hist_count+1
         # if entry2 count returns >= 0 then reset total back to the total entries -1
         if self.entry2_hist_count >= 0:
