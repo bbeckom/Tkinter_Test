@@ -163,6 +163,7 @@ class MyApp(tkinter.Tk):
         self.stored_entry_2_text = str(entry2)
         self.entry2Text.set('')
         self.entry2_entries.append(self.stored_entry_2_text)
+        self.entry2_hist_count = 0
 
     def add_button(self, *args):
         entry1 = self.entry1.get()
@@ -180,6 +181,7 @@ class MyApp(tkinter.Tk):
         self.stored_entry_1_text = str(entry1)
         self.entry1_entries.append(self.stored_entry_1_text)
         self.entry1Text.set('')
+        self.entry1_hist_count = 0
 
     def delete_button(self, *args):
         entry1 = self.entry1.get()
