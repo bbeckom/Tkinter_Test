@@ -87,9 +87,6 @@ class MyApp(tkinter.Tk):
         self.delete_main_window()
         # add new content to text area
         self.mainwindow.insert(tkinter.INSERT, str(result))
-        myval = self.entry1_entries[-1]
-        print(myval)
-        self.entry1_scroll()
 
     def entry1_scroll(self, *args):
         self.entry1_hist_count = self.entry1_hist_count-1
