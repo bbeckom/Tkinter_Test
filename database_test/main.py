@@ -36,12 +36,17 @@ class MyApp(tkinter.Tk):
         self.entry1Text = self.entries[1]
         self.entry2 = self.entries[2]
         self.entry2.bind("<Return>", self.sql_query_button)
+        self.entry2.bind("<Up>", self.entry2_scroll_up)
+        self.entry2.bind("<Down>", self.entry2_scroll_down)
+        self.entry2.bind("<FocusOut>", self.entry2_hist_reset)
         self.entry2Text = self.entries[3]
         self.stored_entry_1_text = "init text"
         self.stored_entry_2_text = "init text"
         # list of entries and history country
         self.entry1_entries = []
         self.entry1_hist_count = 0
+        self.entry2_entries = []
+        self.entry2_hist_count = 0
         # create buttons
         self.buttons_create()
         # create menu
@@ -105,6 +110,7 @@ class MyApp(tkinter.Tk):
     def entry1_scroll_down(self, *args):
         # remove a value from the count so that it goes down every time button is pushed
         self.entry1_hist_count = self.entry1_hist_count+1
+        # if entry1 count returns >= 0 then reset total back to the total entries -1
         if self.entry1_hist_count >= 0:
             total_entries = len(self.entry1_entries)
             self.entry1_hist_count = -total_entries-1
@@ -115,6 +121,32 @@ class MyApp(tkinter.Tk):
 
     def entry1_hist_reset(self, *args):
         self.entry1_hist_count = 0
+
+    def entry2_scroll_up(self, *args):
+        # remove a value from the count so that it goes down every time button is pushed
+        self.entry2_hist_count = self.entry2_hist_count-1
+        # convert hist count to a positive number and see if it's greater than total entries, if so will restart count
+        if len(self.entry2_entries) < -self.entry2_hist_count:
+            self.entry2_hist_count = 0
+            self.entry2Text.set('')
+            return "break"  # have to do this because maxosx wants to insert a character when you press up or down
+        self.entry2Text.set(self.entry2_entries[self.entry2_hist_count])
+        return "break"
+
+    def entry2_scroll_down(self, *args):
+        # remove a value from the count so that it goes down every time button is pushed
+        self.entry2_hist_count = self.entry2_hist_count+1
+        # if entry2 count returns >= 0 then reset total back to the total entries -1
+        if self.entry2_hist_count >= 0:
+            total_entries = len(self.entry2_entries)
+            self.entry2_hist_count = -total_entries-1
+            self.entry2Text.set('')
+            return "break"
+        self.entry2Text.set(self.entry2_entries[self.entry2_hist_count])
+        return "break"
+
+    def entry2_hist_reset(self, *args):
+        self.entry2_hist_count = 0
 
     def sql_query_button(self, *args):
         entry2 = self.entry2.get()
@@ -128,8 +160,9 @@ class MyApp(tkinter.Tk):
         # add new content to text are
         self.mainwindow.insert(tkinter.INSERT, str(result))
         # clear out entry field and store current entry
-        self.stored_entry_2_text = str(result)
+        self.stored_entry_2_text = str(entry2)
         self.entry2Text.set('')
+        self.entry2_entries.append(self.stored_entry_2_text)
 
     def add_button(self, *args):
         entry1 = self.entry1.get()
