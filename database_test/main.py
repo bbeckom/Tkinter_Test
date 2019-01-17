@@ -89,14 +89,14 @@ class MyApp(tkinter.Tk):
         self.mainwindow.insert(tkinter.INSERT, str(result))
 
     def entry1_scroll(self, *args):
+        # remove a value from the count so that it goes down every time button is pushed
         self.entry1_hist_count = self.entry1_hist_count-1
-        hist_count = self.entry1_hist_count
-        entries = self.entry1_entries
-        if len(entries) < -hist_count:
+        # convert hist count to a positive number and see if it's greater than total entries, if so will restart count
+        if len(self.entry1_entries) < -self.entry1_hist_count:
             self.entry1_hist_count = 0
             self.entry1Text.set('')
             return "break"  # have to do this because maxosx wants to insert a character when you press up or down
-        self.entry1Text.set(entries[self.entry1_hist_count])
+        self.entry1Text.set(self.entry1_entries[self.entry1_hist_count])
         return "break"  # have to do this because maxosx wants to insert a character when you press up or down
 
     def entry1_hist_reset(self, *args):
