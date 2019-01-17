@@ -30,7 +30,8 @@ class MyApp(tkinter.Tk):
         self.entries = self.entry_fields()
         self.entry1 = self.entries[0]
         self.entry1.bind("<Return>", self.add_button)
-        self.entry1.bind("<Up>", self.entry1_scroll)
+        self.entry1.bind("<Up>", self.entry1_scroll_up)
+        self.entry1.bind("<Down>", self.entry1_scroll_down)
         self.entry1.bind("<FocusOut>", self.entry1_hist_reset)
         self.entry1Text = self.entries[1]
         self.entry2 = self.entries[2]
@@ -74,6 +75,7 @@ class MyApp(tkinter.Tk):
         # store current entry
         self.stored_entry_1_text = str(name)
         self.entry1_entries.append(self.stored_entry_1_text)
+        self.entry1Text.set('')
 
     def list_all_button(self, *args):
         entry1 = self.entry1.get()
@@ -87,8 +89,9 @@ class MyApp(tkinter.Tk):
         self.delete_main_window()
         # add new content to text area
         self.mainwindow.insert(tkinter.INSERT, str(result))
+        self.entry1Text.set('')
 
-    def entry1_scroll(self, *args):
+    def entry1_scroll_up(self, *args):
         # remove a value from the count so that it goes down every time button is pushed
         self.entry1_hist_count = self.entry1_hist_count-1
         # convert hist count to a positive number and see if it's greater than total entries, if so will restart count
@@ -97,7 +100,18 @@ class MyApp(tkinter.Tk):
             self.entry1Text.set('')
             return "break"  # have to do this because maxosx wants to insert a character when you press up or down
         self.entry1Text.set(self.entry1_entries[self.entry1_hist_count])
-        return "break"  # have to do this because maxosx wants to insert a character when you press up or down
+        return "break"
+
+    def entry1_scroll_down(self, *args):
+        # remove a value from the count so that it goes down every time button is pushed
+        self.entry1_hist_count = self.entry1_hist_count+1
+        if self.entry1_hist_count >= 0:
+            total_entries = len(self.entry1_entries)
+            self.entry1_hist_count = -total_entries-1
+            self.entry1Text.set('')
+            return "break"
+        self.entry1Text.set(self.entry1_entries[self.entry1_hist_count])
+        return "break"
 
     def entry1_hist_reset(self, *args):
         self.entry1_hist_count = 0
@@ -115,6 +129,7 @@ class MyApp(tkinter.Tk):
         self.mainwindow.insert(tkinter.INSERT, str(result))
         # clear out entry field and store current entry
         self.stored_entry_2_text = str(result)
+        self.entry2Text.set('')
 
     def add_button(self, *args):
         entry1 = self.entry1.get()
@@ -131,6 +146,7 @@ class MyApp(tkinter.Tk):
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(entry1)
         self.entry1_entries.append(self.stored_entry_1_text)
+        self.entry1Text.set('')
 
     def delete_button(self, *args):
         entry1 = self.entry1.get()
@@ -147,6 +163,7 @@ class MyApp(tkinter.Tk):
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(entry1)
         self.entry1_entries.append(self.stored_entry_1_text)
+        self.entry1Text.set('')
 
     def enable_main_window(self):
         window = self.mainwindow
