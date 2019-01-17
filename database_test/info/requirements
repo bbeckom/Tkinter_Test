@@ -7,4 +7,3 @@
         set table name to work off of for entry1 field
         refactor code and move a lot of the functions into a new file and clean up function order
     -Minor-
-        move cursor in entry field to the right of text when using up and down arrows for history

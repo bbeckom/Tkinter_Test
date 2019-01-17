@@ -105,6 +105,8 @@ class MyApp(tkinter.Tk):
             self.entry1Text.set('')
             return "break"  # have to do this because maxosx wants to insert a character when you press up or down
         self.entry1Text.set(self.entry1_entries[self.entry1_hist_count])
+        # set cursor position to right of text
+        self.entry1.icursor(len(self.entry1_entries[self.entry1_hist_count]))
         return "break"
 
     def entry1_scroll_down(self, *args):
@@ -117,6 +119,8 @@ class MyApp(tkinter.Tk):
             self.entry1Text.set('')
             return "break"
         self.entry1Text.set(self.entry1_entries[self.entry1_hist_count])
+        # set cursor position to right of text
+        self.entry1.icursor(len(self.entry1_entries[self.entry1_hist_count]))
         return "break"
 
     def entry1_hist_reset(self, *args):
@@ -131,6 +135,8 @@ class MyApp(tkinter.Tk):
             self.entry2Text.set('')
             return "break"  # have to do this because maxosx wants to insert a character when you press up or down
         self.entry2Text.set(self.entry2_entries[self.entry2_hist_count])
+        # set cursor position to right of text
+        self.entry2.icursor(len(self.entry2_entries[self.entry2_hist_count]))
         return "break"
 
     def entry2_scroll_down(self, *args):
@@ -143,6 +149,8 @@ class MyApp(tkinter.Tk):
             self.entry2Text.set('')
             return "break"
         self.entry2Text.set(self.entry2_entries[self.entry2_hist_count])
+        # set cursor position to right of text
+        self.entry2.icursor(len(self.entry2_entries[self.entry2_hist_count]))
         return "break"
 
     def entry2_hist_reset(self, *args):
