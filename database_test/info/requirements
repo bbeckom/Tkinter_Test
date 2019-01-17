@@ -1,25 +1,9 @@
 # File listing out future planned features
 
--*DONE*Add ability to use enter key depending on field selected
--*DONE*Add help text for common SQL commands
-    -*DONE*Make a menu to the right of file called help
-        -Will contain common SQL syntax that outputs to the main window
-            -*DONE*SELECT
-                -SELECT * FROM NAME_table
-            -*DONE*INSERT
-                -INSERT INTO NAME_table (NAME) VALUES ("testname2")
-            -*DONE*DELETE
-                -DELETE FROM NAME_table WHERE NAME="testname1"
-            -*DONE*WHERE
-                -SELECT * FROM NAME_table WHERE ID=1
-            -*DONE*CREATE TABLE
-                -CREATE TABLE Persons (
-                    PersonID int,
-                    LastName varchar(255),
-                    FirstName varchar(255),
-                    Address varchar(255),
-                    City varchar(255)
-                    )
--*DONE*Status bar charlength limit with ...
--add up arrow to scroll through previous commands based upon entry menu chose
--copy function for what's in current window
+-In Progress-
+    -add up arrow to scroll through previous commands based upon entry menu chose
+-Future Features-
+    -Major-
+        set table name to work off of for entry1 field
+    -Minor-
+        copy function for what's in current window

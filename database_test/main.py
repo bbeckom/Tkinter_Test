@@ -30,12 +30,17 @@ class MyApp(tkinter.Tk):
         self.entries = self.entry_fields()
         self.entry1 = self.entries[0]
         self.entry1.bind("<Return>", self.add_button)
+        self.entry1.bind("<Up>", self.entry1_scroll)
+        self.entry1.bind("<FocusOut>", self.entry1_hist_reset)
         self.entry1Text = self.entries[1]
         self.entry2 = self.entries[2]
         self.entry2.bind("<Return>", self.sql_query_button)
         self.entry2Text = self.entries[3]
         self.stored_entry_1_text = "init text"
         self.stored_entry_2_text = "init text"
+        # list of entries and history country
+        self.entry1_entries = []
+        self.entry1_hist_count = 0
         # create buttons
         self.buttons_create()
         # create menu
@@ -67,7 +72,8 @@ class MyApp(tkinter.Tk):
         # add new content to text area
         self.mainwindow.insert(tkinter.INSERT, str(result))
         # store current entry
-        self.stored_entry_1_text = str(result)
+        self.stored_entry_1_text = str(name)
+        self.entry1_entries.append(self.stored_entry_1_text)
 
     def list_all_button(self, *args):
         entry1 = self.entry1.get()
@@ -81,6 +87,30 @@ class MyApp(tkinter.Tk):
         self.delete_main_window()
         # add new content to text area
         self.mainwindow.insert(tkinter.INSERT, str(result))
+        myval = self.entry1_entries[-1]
+        print(myval)
+        self.entry1_scroll()
+
+    def entry1_scroll(self, *args):
+        self.entry1_hist_count = self.entry1_hist_count-1
+        hist_count = self.entry1_hist_count
+        entries = self.entry1_entries
+        if len(entries) < -hist_count:
+            self.entry1_hist_count = 0
+            return
+        # will use up arrow for self.entry1.bind in init to call this function
+        #
+        # create variable (self.entry1_hist_count) for entry to pull and set init value to 0
+        #
+        # Set off focus value self.entry1_hist_count to 0, then, while focused, run this command which will add -1 to
+        # that count until the count exceeds the value of items in the self.entry1_entries list. The check whether it
+        # exceeds will be done as the first if then statement then will set the value to 0 and run the rest of the
+        # commands.
+        print(hist_count)
+        print(entries[self.entry1_hist_count])
+
+    def entry1_hist_reset(self, *args):
+        self.entry1_hist_count = 0
 
     def sql_query_button(self, *args):
         entry2 = self.entry2.get()
@@ -109,7 +139,8 @@ class MyApp(tkinter.Tk):
         # add new content to text are
         self.mainwindow.insert(tkinter.INSERT, str(result))
         # clear out entry field and store current entry
-        self.stored_entry_1_text = str(result)
+        self.stored_entry_1_text = str(entry1)
+        self.entry1_entries.append(self.stored_entry_1_text)
 
     def delete_button(self, *args):
         entry1 = self.entry1.get()
@@ -124,7 +155,8 @@ class MyApp(tkinter.Tk):
         # add new content to text are
         self.mainwindow.insert(tkinter.INSERT, str(result))
         # clear out entry field and store current entry
-        self.stored_entry_1_text = str(result)
+        self.stored_entry_1_text = str(entry1)
+        self.entry1_entries.append(self.stored_entry_1_text)
 
     def enable_main_window(self):
         window = self.mainwindow
