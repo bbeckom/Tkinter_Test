@@ -7,3 +7,4 @@
         set table name to work off of for entry1 field
         refactor code and move a lot of the functions into a new file and clean up function order
     -Minor-
+        make stored entries list not store duplicates by removing previous entry then adding to end of list
