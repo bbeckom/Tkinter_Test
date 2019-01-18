@@ -3,6 +3,15 @@
 import tkinter
 import database_test.db_actions as db
 import database_test.help as hp
+import pyperclip
+
+
+def simple_copy():
+    pyperclip.copy(app.mainwindow_text)
+
+
+def print_mainwindow(*args):
+    app.mainwindow.insert(tkinter.INSERT, app.mainwindow_text)
 
 
 class MyApp(tkinter.Tk):
@@ -17,8 +26,8 @@ class MyApp(tkinter.Tk):
         self.mainwindow = tkinter.Text(self, bg="white", fg="black")
         self.mainwindow.pack(side=tkinter.TOP, fill=tkinter.BOTH, expand=1)
         # set default main window text... using state to enable and disable the text box
-        self.mainwindow.insert(tkinter.INSERT, "Simple SQLite DB program to mess around with.\n"
-                                               "Choose a button below.")
+        self.mainwindow_text = "Simple SQLite DB program to mess around with.\nChoose a button below."
+        self.mainwindow.insert(tkinter.INSERT, self.mainwindow_text)
         # create frame sections for pack layout
         self.topFrame = tkinter.Frame(self)
         self.topFrame.pack(fill=tkinter.X)
@@ -76,7 +85,8 @@ class MyApp(tkinter.Tk):
         # delete text entry area
         self.delete_main_window()
         # add new content to text area
-        self.mainwindow.insert(tkinter.INSERT, str(result))
+        self.mainwindow_text = str(result)
+        print_mainwindow()
         # store current entry
         self.stored_entry_1_text = str(name)
         self.entry1_entries.append(self.stored_entry_1_text)
@@ -93,7 +103,8 @@ class MyApp(tkinter.Tk):
         # delete text entry area
         self.delete_main_window()
         # add new content to text area
-        self.mainwindow.insert(tkinter.INSERT, str(result))
+        self.mainwindow_text = str(result)
+        print_mainwindow()
         self.entry1Text.set('')
 
     def entry1_scroll_up(self, *args):
@@ -166,7 +177,8 @@ class MyApp(tkinter.Tk):
         # delete text entry area
         self.delete_main_window()
         # add new content to text are
-        self.mainwindow.insert(tkinter.INSERT, str(result))
+        self.mainwindow_text = str(result)
+        print_mainwindow()
         # clear out entry field and store current entry
         self.stored_entry_2_text = str(entry2)
         self.entry2Text.set('')
@@ -184,7 +196,8 @@ class MyApp(tkinter.Tk):
         # delete text entry area
         self.delete_main_window()
         # add new content to text are
-        self.mainwindow.insert(tkinter.INSERT, str(result))
+        self.mainwindow_text = str(result)
+        print_mainwindow()
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(entry1)
         self.entry1_entries.append(self.stored_entry_1_text)
@@ -202,7 +215,8 @@ class MyApp(tkinter.Tk):
         # delete text entry area
         self.delete_main_window()
         # add new content to text are
-        self.mainwindow.insert(tkinter.INSERT, str(result))
+        self.mainwindow_text = str(result)
+        print_mainwindow()
         # clear out entry field and store current entry
         self.stored_entry_1_text = str(entry1)
         self.entry1_entries.append(self.stored_entry_1_text)
@@ -224,7 +238,8 @@ class MyApp(tkinter.Tk):
         # delete existing contents
         self.delete_main_window()
         # add new content to text are
-        self.mainwindow.insert(tkinter.INSERT, str(text))
+        self.mainwindow_text = str(text)
+        print_mainwindow()
 
     def menu_create(self):
         # create menu and set to app with self.config
@@ -236,6 +251,8 @@ class MyApp(tkinter.Tk):
         help_menu = tkinter.Menu(main_menu, tearoff=0)
         main_menu.add_cascade(label="Help", menu=help_menu)
         # File submenu options
+        file_menu.add_command(label="Copy text", command=simple_copy)
+        file_menu.add_separator()
         file_menu.add_command(label="Enable text field", command=self.enable_main_window)
         file_menu.add_command(label="Disable text field", command=self.disable_main_window)
         file_menu.add_separator()
