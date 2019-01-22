@@ -257,16 +257,16 @@ class MyApp(tkinter.Tk):
         file_menu.add_command(label="Exit", command=self.quit)
         # Help submenu options
         # lambda allows you to pass arguments into the command
-        help_menu.add_command(label="NAME_table creation", command= lambda: self.main_window_print(hp.table_help(1)))
+        help_menu.add_command(label="NAME_table creation", command=lambda: self.main_window_print(hp.table_help(1)))
         help_menu.add_separator()
-        help_menu.add_command(label="SELECT:1", command= lambda: self.main_window_print(hp.select_help(1)))
-        help_menu.add_command(label="SELECT:2", command= lambda: self.main_window_print(hp.select_help(2)))
-        help_menu.add_command(label="DELETE:1", command= lambda: self.main_window_print(hp.delete_help(1)))
-        help_menu.add_command(label="INSERT:1", command= lambda: self.main_window_print(hp.insert_help(1)))
-        help_menu.add_command(label="CREATE TABLE:1", command= lambda: self.main_window_print(hp.table_help(2)))
+        help_menu.add_command(label="SELECT:1", command=lambda: self.main_window_print(hp.select_help(1)))
+        help_menu.add_command(label="SELECT:2", command=lambda: self.main_window_print(hp.select_help(2)))
+        help_menu.add_command(label="DELETE:1", command=lambda: self.main_window_print(hp.delete_help(1)))
+        help_menu.add_command(label="INSERT:1", command=lambda: self.main_window_print(hp.insert_help(1)))
+        help_menu.add_command(label="CREATE TABLE:1", command=lambda: self.main_window_print(hp.table_help(2)))
         help_menu.add_separator()
-        help_menu.add_command(label="List tables", command= lambda: self.main_window_print(hp.table_help(3)))
-        help_menu.add_command(label="Table info", command= lambda: self.main_window_print(hp.table_help(4)))
+        help_menu.add_command(label="List tables", command=lambda: self.main_window_print(hp.table_help(3)))
+        help_menu.add_command(label="Table info", command=lambda: self.main_window_print(hp.table_help(4)))
 
     def status_create(self):
         # status bar at bottom of app
