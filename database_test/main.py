@@ -11,7 +11,13 @@ def simple_copy():
 
 
 def print_mainwindow(*args):
+    # delete
+    window = app.mainwindow
+    window.delete(1.0, tkinter.END)
+    # insert
     app.mainwindow.insert(tkinter.INSERT, app.mainwindow_text)
+    app.entry1Text.set('')
+    app.entry2Text.set('')
 
 
 class MyApp(tkinter.Tk):
@@ -82,30 +88,29 @@ class MyApp(tkinter.Tk):
         result = result.fetchall()
         # reconfigure status bar to display entry1 text
         self.set_statusbar_text(result)
-        # delete text entry area
-        self.delete_main_window()
         # add new content to text area
         self.mainwindow_text = str(result)
         print_mainwindow()
         # store current entry
-        self.stored_entry_1_text = str(name)
-        self.entry1_entries.append(self.stored_entry_1_text)
-        self.entry1Text.set('')
+        self.entry1_store(name)
 
     def list_all_button(self, *args):
-        entry1 = self.entry1.get()
-        print(entry1)
         # run list all db function
         result = db.list_names()
         result = result.fetchall()
         # reconfigure status bar to display entry text
         self.set_statusbar_text(result)
-        # delete text entry area
-        self.delete_main_window()
         # add new content to text area
         self.mainwindow_text = str(result)
         print_mainwindow()
-        self.entry1Text.set('')
+
+    def entry1_store(self, text):
+        self.stored_entry_1_text = str(text)
+        try:
+            self.entry1_entries.remove(self.stored_entry_1_text)
+            self.entry1_entries.append(self.stored_entry_1_text)
+        except ValueError:
+            self.entry1_entries.append(self.stored_entry_1_text)
 
     def entry1_scroll_up(self, *args):
         # remove a value from the count so that it goes down every time button is pushed
@@ -136,6 +141,14 @@ class MyApp(tkinter.Tk):
 
     def entry1_hist_reset(self, *args):
         self.entry1_hist_count = 0
+
+    def entry2_store(self, text):
+        self.stored_entry_2_text = str(text)
+        try:
+            self.entry2_entries.remove(self.stored_entry_2_text)
+            self.entry2_entries.append(self.stored_entry_2_text)
+        except ValueError:
+            self.entry2_entries.append(self.stored_entry_2_text)
 
     def entry2_scroll_up(self, *args):
         # remove a value from the count so that it goes down every time button is pushed
@@ -174,16 +187,12 @@ class MyApp(tkinter.Tk):
         result = db.sql_query(entry2)
         # reconfigure status bar to display entry text
         self.set_statusbar_text(result)
-        # delete text entry area
-        self.delete_main_window()
         # add new content to text are
         self.mainwindow_text = str(result)
-        print_mainwindow()
         # clear out entry field and store current entry
-        self.stored_entry_2_text = str(entry2)
-        self.entry2Text.set('')
-        self.entry2_entries.append(self.stored_entry_2_text)
-        self.entry2_hist_count = 0
+        self.entry2_store(entry2)
+        print_mainwindow()
+        self.entry2_hist_reset()
 
     def add_button(self, *args):
         entry1 = self.entry1.get()
@@ -193,15 +202,11 @@ class MyApp(tkinter.Tk):
         result = result.fetchall()
         # reconfigure status bar to display entry text
         self.set_statusbar_text(result)
-        # delete text entry area
-        self.delete_main_window()
         # add new content to text are
         self.mainwindow_text = str(result)
         print_mainwindow()
         # clear out entry field and store current entry
-        self.stored_entry_1_text = str(entry1)
-        self.entry1_entries.append(self.stored_entry_1_text)
-        self.entry1Text.set('')
+        self.entry1_store(entry1)
         self.entry1_hist_count = 0
 
     def delete_button(self, *args):
@@ -212,15 +217,11 @@ class MyApp(tkinter.Tk):
         result = result.fetchall()
         # reconfigure status bar to display entry text
         self.set_statusbar_text(result)
-        # delete text entry area
-        self.delete_main_window()
         # add new content to text are
         self.mainwindow_text = str(result)
-        print_mainwindow()
         # clear out entry field and store current entry
-        self.stored_entry_1_text = str(entry1)
-        self.entry1_entries.append(self.stored_entry_1_text)
-        self.entry1Text.set('')
+        self.entry1_store(entry1)
+        print_mainwindow()
 
     def enable_main_window(self):
         window = self.mainwindow
@@ -230,13 +231,10 @@ class MyApp(tkinter.Tk):
         window = self.mainwindow
         window.config(state=tkinter.DISABLED)
 
-    def delete_main_window(self):
-        window = self.mainwindow
-        window.delete(1.0, tkinter.END)
-
     def main_window_print(self, text):
         # delete existing contents
-        self.delete_main_window()
+        window = self.mainwindow
+        window.delete(1.0, tkinter.END)
         # add new content to text are
         self.mainwindow_text = str(text)
         print_mainwindow()
