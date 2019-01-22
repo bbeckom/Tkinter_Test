@@ -10,7 +10,7 @@ def simple_copy():
     pyperclip.copy(app.mainwindow_text)
 
 
-def print_mainwindow(*args):
+def refresh_mainwindow(*args):
     # delete
     window = app.mainwindow
     window.delete(1.0, tkinter.END)
@@ -90,7 +90,7 @@ class MyApp(tkinter.Tk):
         self.set_statusbar_text(result)
         # add new content to text area
         self.mainwindow_text = str(result)
-        print_mainwindow()
+        refresh_mainwindow()
         # store current entry
         self.entry1_store(name)
 
@@ -102,7 +102,7 @@ class MyApp(tkinter.Tk):
         self.set_statusbar_text(result)
         # add new content to text area
         self.mainwindow_text = str(result)
-        print_mainwindow()
+        refresh_mainwindow()
 
     def entry1_store(self, text):
         self.stored_entry_1_text = str(text)
@@ -191,7 +191,7 @@ class MyApp(tkinter.Tk):
         self.mainwindow_text = str(result)
         # clear out entry field and store current entry
         self.entry2_store(entry2)
-        print_mainwindow()
+        refresh_mainwindow()
         self.entry2_hist_reset()
 
     def add_button(self, *args):
@@ -204,7 +204,7 @@ class MyApp(tkinter.Tk):
         self.set_statusbar_text(result)
         # add new content to text are
         self.mainwindow_text = str(result)
-        print_mainwindow()
+        refresh_mainwindow()
         # clear out entry field and store current entry
         self.entry1_store(entry1)
         self.entry1_hist_count = 0
@@ -221,7 +221,7 @@ class MyApp(tkinter.Tk):
         self.mainwindow_text = str(result)
         # clear out entry field and store current entry
         self.entry1_store(entry1)
-        print_mainwindow()
+        refresh_mainwindow()
 
     def enable_main_window(self):
         window = self.mainwindow
@@ -237,7 +237,7 @@ class MyApp(tkinter.Tk):
         window.delete(1.0, tkinter.END)
         # add new content to text are
         self.mainwindow_text = str(text)
-        print_mainwindow()
+        refresh_mainwindow()
 
     def menu_create(self):
         # create menu and set to app with self.config
