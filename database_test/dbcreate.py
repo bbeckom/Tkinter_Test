@@ -32,6 +32,10 @@ listables = "SELECT name FROM sqlite_master WHERE type='table'"
 cursor.execute(listables)
 print(cursor.fetchall())
 
+# create a testuser
+query = "INSERT INTO NAME_table (NAME) values ('testname1')"
+cursor.execute(query)
+
 # commit changes
 db.commit()
 # close db connection
