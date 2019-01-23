@@ -10,8 +10,14 @@ def simple_copy():
     pyperclip.copy(app.mainwindow_text)
 
 
-def print_mainwindow(*args):
+def refresh_mainwindow(*args):
+    # delete
+    window = app.mainwindow
+    window.delete(1.0, tkinter.END)
+    # insert
     app.mainwindow.insert(tkinter.INSERT, app.mainwindow_text)
+    app.entry1Text.set('')
+    app.entry2Text.set('')
 
 
 class MyApp(tkinter.Tk):
@@ -82,30 +88,29 @@ class MyApp(tkinter.Tk):
         result = result.fetchall()
         # reconfigure status bar to display entry1 text
         self.set_statusbar_text(result)
-        # delete text entry area
-        self.delete_main_window()
         # add new content to text area
         self.mainwindow_text = str(result)
-        print_mainwindow()
+        refresh_mainwindow()
         # store current entry
-        self.stored_entry_1_text = str(name)
-        self.entry1_entries.append(self.stored_entry_1_text)
-        self.entry1Text.set('')
+        self.entry1_store(name)
 
     def list_all_button(self, *args):
-        entry1 = self.entry1.get()
-        print(entry1)
         # run list all db function
         result = db.list_names()
         result = result.fetchall()
         # reconfigure status bar to display entry text
         self.set_statusbar_text(result)
-        # delete text entry area
-        self.delete_main_window()
         # add new content to text area
         self.mainwindow_text = str(result)
-        print_mainwindow()
-        self.entry1Text.set('')
+        refresh_mainwindow()
+
+    def entry1_store(self, text):
+        self.stored_entry_1_text = str(text)
+        try:
+            self.entry1_entries.remove(self.stored_entry_1_text)
+            self.entry1_entries.append(self.stored_entry_1_text)
+        except ValueError:
+            self.entry1_entries.append(self.stored_entry_1_text)
 
     def entry1_scroll_up(self, *args):
         # remove a value from the count so that it goes down every time button is pushed
@@ -136,6 +141,14 @@ class MyApp(tkinter.Tk):
 
     def entry1_hist_reset(self, *args):
         self.entry1_hist_count = 0
+
+    def entry2_store(self, text):
+        self.stored_entry_2_text = str(text)
+        try:
+            self.entry2_entries.remove(self.stored_entry_2_text)
+            self.entry2_entries.append(self.stored_entry_2_text)
+        except ValueError:
+            self.entry2_entries.append(self.stored_entry_2_text)
 
     def entry2_scroll_up(self, *args):
         # remove a value from the count so that it goes down every time button is pushed
@@ -174,16 +187,12 @@ class MyApp(tkinter.Tk):
         result = db.sql_query(entry2)
         # reconfigure status bar to display entry text
         self.set_statusbar_text(result)
-        # delete text entry area
-        self.delete_main_window()
         # add new content to text are
         self.mainwindow_text = str(result)
-        print_mainwindow()
         # clear out entry field and store current entry
-        self.stored_entry_2_text = str(entry2)
-        self.entry2Text.set('')
-        self.entry2_entries.append(self.stored_entry_2_text)
-        self.entry2_hist_count = 0
+        self.entry2_store(entry2)
+        refresh_mainwindow()
+        self.entry2_hist_reset()
 
     def add_button(self, *args):
         entry1 = self.entry1.get()
@@ -193,15 +202,11 @@ class MyApp(tkinter.Tk):
         result = result.fetchall()
         # reconfigure status bar to display entry text
         self.set_statusbar_text(result)
-        # delete text entry area
-        self.delete_main_window()
         # add new content to text are
         self.mainwindow_text = str(result)
-        print_mainwindow()
+        refresh_mainwindow()
         # clear out entry field and store current entry
-        self.stored_entry_1_text = str(entry1)
-        self.entry1_entries.append(self.stored_entry_1_text)
-        self.entry1Text.set('')
+        self.entry1_store(entry1)
         self.entry1_hist_count = 0
 
     def delete_button(self, *args):
@@ -212,15 +217,11 @@ class MyApp(tkinter.Tk):
         result = result.fetchall()
         # reconfigure status bar to display entry text
         self.set_statusbar_text(result)
-        # delete text entry area
-        self.delete_main_window()
         # add new content to text are
         self.mainwindow_text = str(result)
-        print_mainwindow()
         # clear out entry field and store current entry
-        self.stored_entry_1_text = str(entry1)
-        self.entry1_entries.append(self.stored_entry_1_text)
-        self.entry1Text.set('')
+        self.entry1_store(entry1)
+        refresh_mainwindow()
 
     def enable_main_window(self):
         window = self.mainwindow
@@ -230,16 +231,13 @@ class MyApp(tkinter.Tk):
         window = self.mainwindow
         window.config(state=tkinter.DISABLED)
 
-    def delete_main_window(self):
-        window = self.mainwindow
-        window.delete(1.0, tkinter.END)
-
     def main_window_print(self, text):
         # delete existing contents
-        self.delete_main_window()
+        window = self.mainwindow
+        window.delete(1.0, tkinter.END)
         # add new content to text are
         self.mainwindow_text = str(text)
-        print_mainwindow()
+        refresh_mainwindow()
 
     def menu_create(self):
         # create menu and set to app with self.config
@@ -258,40 +256,17 @@ class MyApp(tkinter.Tk):
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.quit)
         # Help submenu options
-        help_menu.add_command(label="NAME_table creation", command=self.help_1)
+        # lambda allows you to pass arguments into the command
+        help_menu.add_command(label="NAME_table creation", command=lambda: self.main_window_print(hp.table_help(1)))
         help_menu.add_separator()
-        help_menu.add_command(label="SELECT:1", command=self.help_2)
-        help_menu.add_command(label="SELECT:2", command=self.help_3)
-        help_menu.add_command(label="DELETE:1", command=self.help_4)
-        help_menu.add_command(label="INSERT:1", command=self.help_5)
-        help_menu.add_command(label="CREATE TABLE:1", command=self.help_6)
+        help_menu.add_command(label="SELECT:1", command=lambda: self.main_window_print(hp.select_help(1)))
+        help_menu.add_command(label="SELECT:2", command=lambda: self.main_window_print(hp.select_help(2)))
+        help_menu.add_command(label="DELETE:1", command=lambda: self.main_window_print(hp.delete_help(1)))
+        help_menu.add_command(label="INSERT:1", command=lambda: self.main_window_print(hp.insert_help(1)))
+        help_menu.add_command(label="CREATE TABLE:1", command=lambda: self.main_window_print(hp.table_help(2)))
         help_menu.add_separator()
-        help_menu.add_command(label="List tables", command=self.help_7)
-        help_menu.add_command(label="Table info", command=self.help_8)
-
-    def help_1(self):
-        self.main_window_print(hp.table_help(1))
-
-    def help_2(self):
-        self.main_window_print(hp.select_help(1))
-
-    def help_3(self):
-        self.main_window_print(hp.select_help(2))
-
-    def help_4(self):
-        self.main_window_print(hp.delete_help(1))
-
-    def help_5(self):
-        self.main_window_print(hp.insert_help(1))
-
-    def help_6(self):
-        self.main_window_print(hp.table_help(2))
-
-    def help_7(self):
-        self.main_window_print(hp.table_help(3))
-
-    def help_8(self):
-        self.main_window_print(hp.table_help(4))
+        help_menu.add_command(label="List tables", command=lambda: self.main_window_print(hp.table_help(3)))
+        help_menu.add_command(label="Table info", command=lambda: self.main_window_print(hp.table_help(4)))
 
     def status_create(self):
         # status bar at bottom of app
