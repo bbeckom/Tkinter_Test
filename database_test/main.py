@@ -72,6 +72,7 @@ class MyApp(tkinter.Tk):
         print("init text")
 
     def set_statusbar_text(self, input):
+        # sets statusbar text at bottom of window #
         status = self.status_bar
         input = str(input)
         if len(input) > 95:
@@ -80,6 +81,7 @@ class MyApp(tkinter.Tk):
         status.config(text=input)
 
     def list_name_button(self, *args):
+        # do select for given name against name_table #
         entry1 = self.entry1.get()
         print(entry1)
         name = entry1
@@ -95,6 +97,7 @@ class MyApp(tkinter.Tk):
         self.entry1_store(name)
 
     def list_all_button(self, *args):
+        # do select all against NAME_table #
         # run list all db function
         result = db.list_names()
         result = result.fetchall()
@@ -105,6 +108,7 @@ class MyApp(tkinter.Tk):
         refresh_mainwindow()
 
     def entry1_store(self, text):
+        # store recent entry into array and remove duplicates #
         self.stored_entry_1_text = str(text)
         try:
             self.entry1_entries.remove(self.stored_entry_1_text)
@@ -113,6 +117,7 @@ class MyApp(tkinter.Tk):
             self.entry1_entries.append(self.stored_entry_1_text)
 
     def entry1_scroll_up(self, *args):
+        # when up arrow is pressed scroll in order through recent entries #
         # remove a value from the count so that it goes down every time button is pushed
         self.entry1_hist_count = self.entry1_hist_count-1
         # convert hist count to a positive number and see if it's greater than total entries, if so will restart count
@@ -126,6 +131,7 @@ class MyApp(tkinter.Tk):
         return "break"
 
     def entry1_scroll_down(self, *args):
+        # when down arrow is pressed scroll in reverse order through recent entries #
         # add a value to the count so that it goes up every time button is pushed
         self.entry1_hist_count = self.entry1_hist_count+1
         # if entry1 count returns >= 0 then reset total back to the total entries -1
@@ -140,9 +146,11 @@ class MyApp(tkinter.Tk):
         return "break"
 
     def entry1_hist_reset(self, *args):
+        # function to reset entry1 history to 0 #
         self.entry1_hist_count = 0
 
     def entry2_store(self, text):
+        # store recent entry into array and remove duplicates #
         self.stored_entry_2_text = str(text)
         try:
             self.entry2_entries.remove(self.stored_entry_2_text)
@@ -151,6 +159,7 @@ class MyApp(tkinter.Tk):
             self.entry2_entries.append(self.stored_entry_2_text)
 
     def entry2_scroll_up(self, *args):
+        # when up arrow is pressed scroll in order through recent entries #
         # remove a value from the count so that it goes down every time button is pushed
         self.entry2_hist_count = self.entry2_hist_count-1
         # convert hist count to a positive number and see if it's greater than total entries, if so will restart count
@@ -164,6 +173,7 @@ class MyApp(tkinter.Tk):
         return "break"
 
     def entry2_scroll_down(self, *args):
+        # when down arrow is pressed scroll in reverse order through recent entries #
         # add a value to the count so that it goes up every time button is pushed
         self.entry2_hist_count = self.entry2_hist_count+1
         # if entry2 count returns >= 0 then reset total back to the total entries -1
@@ -178,9 +188,11 @@ class MyApp(tkinter.Tk):
         return "break"
 
     def entry2_hist_reset(self, *args):
+        # function to reset entry2 history to 0 #
         self.entry2_hist_count = 0
 
     def sql_query_button(self, *args):
+        # run raw sql against DB #
         entry2 = self.entry2.get()
         print(entry2)
         # run db query function
@@ -195,6 +207,7 @@ class MyApp(tkinter.Tk):
         self.entry2_hist_reset()
 
     def add_button(self, *args):
+        # add given entry to database #
         entry1 = self.entry1.get()
         print(entry1)
         # run db add function
@@ -210,6 +223,7 @@ class MyApp(tkinter.Tk):
         self.entry1_hist_count = 0
 
     def delete_button(self, *args):
+        # delete given user from database #
         entry1 = self.entry1.get()
         print(entry1)
         # run db delete command
@@ -224,14 +238,17 @@ class MyApp(tkinter.Tk):
         refresh_mainwindow()
 
     def enable_main_window(self):
+        # enables editing of main window area #
         window = self.mainwindow
         window.config(state=tkinter.NORMAL)
 
     def disable_main_window(self):
+        # disables editing of main window area #
         window = self.mainwindow
         window.config(state=tkinter.DISABLED)
 
     def main_window_print(self, text):
+        # call function to print given text to window #
         # delete existing contents
         window = self.mainwindow
         window.delete(1.0, tkinter.END)
@@ -240,6 +257,7 @@ class MyApp(tkinter.Tk):
         refresh_mainwindow()
 
     def menu_create(self):
+        # creates menu options that appear at top of the window #
         # create menu and set to app with self.config
         main_menu = tkinter.Menu(self)
         self.config(menu=main_menu)
